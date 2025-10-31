@@ -1,17 +1,16 @@
 ---
-title: "Luke Fischer"
+title: ""
 ---
 
-::: {.columns}
-::: {.column width="40%"}
-![](Images/Luke 1.2.jpg){.img-fluid}
+![](Images/Luke%201.2.jpg){.img-fluid fig-align="center" width="300"}
+
+::: center
+My name is Luke Fischer and I am a research master's student in communication science\
+focusing on political psychology and communication.
 :::
 
-::: {.column width="60%"}
-**Some text on the side of the image.**
+------------------------------------------------------------------------
 
-You can add more text or markdown here.
+::: center
+![](Images/clipboard-3206120217.png){width="50"} ![](Images/clipboard-1284718281.jpeg){width="50"} ![](Images/clipboard-2666387927.png){width="50"} ![](Images/clipboard-1284718281.jpeg){width="50"} ![](Images/clipboard-2453219549.png){width="50"}
 :::
-:::
-
-Welcome to my Personal Website.
