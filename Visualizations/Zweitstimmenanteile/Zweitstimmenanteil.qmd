@@ -1,0 +1,557 @@
+---
+title: "Zweitstimmenanteile der Bundesparteien"
+author: "Luke D. Fischer"
+format: html
+editor: visual
+toc: TRUE
+---
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(gganimate)
+library(ggrepel)
+library(patchwork)
+library(gifski)
+
+# Preliminary Data Wrangling
+
+data <- read_xlsx("/Users/lukefischer/Dropbox/Website/lukedfischer.github.io/Visualizations/Zweitstimmenanteile/zweitstimmen.xlsx")
+
+data <- data |> 
+  select(!SSW)
+
+data <- data |> 
+  pivot_longer(
+    cols = !Jahr, 
+    names_to = "Partei", 
+    values_to= "Share"
+  )
+```
+
+# Kontext
+
+Dieses Dokument stellt die Zweitstimmenanteile der größten Bundesparteien im Laufe der Geschichte der Bundesrepublik Deutschland dar.
+
+Datenquelle: [Deutscher Bundestag](https://www.bundestag.de/parlament/wahlen/ergebnisse_seit1949-244692)
+
+# Zweitstimmenanteile seit 1949
+
+Die Zweitstimmenanteile der Parteien CDU/CSU, SPD, FDP, Bündnis 90/Die Grünen, die Linke, und AfD in Prozent (%)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+data <- data |> 
+  mutate(Jahr = as.Date(paste0(Jahr, "-01-01"))) |> 
+  #mutate(Partei = if_else(Partei == "Die Linke. PDS", "Die Linke", Partei)) |> 
+  mutate(Partei = factor(Partei, levels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke. PDS", "AfD", "Sonstige"))) 
+
+p_general <- data |> 
+  ggplot(aes(
+    x = Jahr, 
+    y = Share, 
+    color = Partei, 
+    group = Partei)) + 
+  geom_line(size = 0.7) + 
+  geom_hline(aes(yintercept = 5), alpha = 0.3, linetype = "dotted") +
+  scale_x_date(
+    breaks = unique(data$Jahr), 
+    date_labels = "'%y", 
+    expand = c(0,0), 
+    limits= c(as.Date("1949-01-01"), as.Date("2026-01-01"))) +
+ scale_y_continuous(expand = c(0, 0), 
+                     breaks = seq(0,50,5), 
+                     limits = c(0, 52)) +
+  labs(y = "") +
+  scale_color_manual(values = 
+                       c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
+                     labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
+  theme_classic()
+
+p_general
+```
+
+## CDU/CSU
+
+Die Zweitstimmenanteile in Prozent (%)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+data <- data |> 
+  mutate(CDU = if_else(Partei == "CDU/CSU", Share, NA))
+
+data <- data |> 
+  mutate(nicht_CDU = if_else(Partei != "CDU/CSU", Share, NA)) 
+
+data <- data |> 
+  mutate(CDU_sum = if_else(CDU == max(CDU, na.rm = TRUE) | CDU == min(CDU, na.rm = TRUE) | Jahr == as.Date("2025-01-01"), CDU, NA)) 
+
+
+
+p_CDU <- data |> 
+  ggplot(aes(
+    x = Jahr, 
+    y = CDU, 
+    color = Partei)) + 
+  geom_hline(aes(yintercept = 5), alpha = 0.3, linetype = "dotted") +
+  geom_line(size = 0.7) + 
+  geom_line(aes(y = nicht_CDU), 
+            alpha = 0.1) +
+  labs(y = "") +
+  scale_color_manual(values = 
+                       c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
+                     labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
+  annotate(
+    "segment",
+    x = as.Date("2025-01-01"),
+    y = 0,
+    yend = 28.6, 
+    color = "black", 
+    linetype = 2
+  ) +
+  annotate(
+    "segment",
+    x = as.Date("2021-01-01"),
+    y = 0,
+    yend = 24.1, 
+    color = "black", 
+    linetype = 2
+  )+
+  annotate(
+    "segment",
+    x = as.Date("1957-01-01"),
+    y = 0,
+    yend = 50.2, 
+    color = "black", 
+    linetype = 2
+  )+
+  geom_point(aes(y = CDU_sum),
+             size = 2, 
+             show.legend = FALSE) +
+  scale_x_date(
+    breaks = unique(data$Jahr), 
+    date_labels = "'%y", 
+    expand = c(0,0), 
+    limits= c(as.Date("1949-01-01"), as.Date("2026-01-01"))) + 
+  scale_y_continuous(expand = c(0, 0), 
+                     breaks = c(data$CDU_sum, 50.2), 
+                     limits = c(0, 52)) + 
+  theme_classic() +
+  theme(axis.text.y = element_text(size=9))
+
+invisible(p_CDU)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-dpi: 300
+
+p_CDU
+```
+
+## SPD
+
+Die Zweitstimmenanteile in Prozent (%)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+data <- data |> 
+  mutate(SPD = if_else(Partei == "SPD", Share, NA))
+
+data <- data |> 
+  mutate(nicht_SPD = if_else(Partei != "SPD", Share, NA)) 
+
+data <- data |> 
+  mutate(SPD_sum = if_else(SPD == max(SPD, na.rm = TRUE) | SPD == min(SPD, na.rm = TRUE) | Jahr == as.Date("2025-01-01"), SPD, NA)) 
+
+
+p_SPD <- data |> 
+  ggplot(aes(
+    x = Jahr, 
+    y = SPD, 
+    color = Partei)) + 
+    geom_hline(aes(yintercept = 5), alpha = 0.3, linetype = "dotted") +
+  geom_line(size = 0.7) + 
+  geom_line(aes(y = nicht_SPD), 
+            alpha = 0.1) +
+ labs(y = "") +
+  scale_color_manual(values = 
+                       c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
+                     labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
+  annotate(
+    "segment",
+    x = as.Date("2025-01-01"),
+    y = 0,
+    yend = 16.4, 
+    color = "#E3000F", 
+    linetype = 2
+  ) +
+  annotate(
+    "segment",
+    x = as.Date("1972-01-01"),
+    y = 0,
+    yend = 45.8, 
+    color = "#E3000F", 
+    linetype = 2
+  )+
+  geom_point(aes(y = SPD_sum),
+             size = 2, 
+             show.legend = FALSE) +
+  scale_x_date(
+    breaks = unique(data$Jahr), 
+    date_labels = "'%y", 
+    expand = c(0,0), 
+    limits= c(as.Date("1949-01-01"), as.Date("2026-01-01"))) + 
+  scale_y_continuous(expand = c(0, 0), 
+                     breaks = c(data$SPD_sum, 50.2), 
+                     limits = c(0, 52)) + 
+  theme_classic() +
+  theme(axis.text.y = element_text(size=9))
+
+invisible(p_SPD)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-dpi: 300
+
+p_SPD
+```
+
+## FDP
+
+Die Zweitstimmenanteile in Prozent (%)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+data <- data |> 
+  mutate(FDP = if_else(Partei == "FDP", Share, NA))
+
+data <- data |> 
+  mutate(nicht_FDP = if_else(Partei != "FDP", Share, NA)) 
+
+data <- data |> 
+  mutate(FDP_sum = if_else(FDP == max(FDP, na.rm = TRUE) | FDP == min(FDP, na.rm = TRUE) | Jahr == as.Date("2025-01-01"), FDP, NA)) 
+
+p_FDP <- data |> 
+  ggplot(aes(
+    x = Jahr, 
+    y = FDP, 
+    color = Partei)) + 
+  geom_hline(aes(yintercept = 5), alpha = 0.3, linetype = "dotted") +
+  geom_line(size = 0.7) + 
+  geom_line(aes(y = nicht_FDP), 
+            alpha = 0.1) +
+  labs(y = "") +
+  scale_color_manual(values = 
+                       c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
+                     labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
+  annotate(
+    "segment",
+    x = as.Date("2025-01-01"),
+    y = 0,
+    yend = 4.3, 
+    color = "#FFDE21", 
+    linetype = 2
+  ) +
+  annotate(
+    "segment",
+    x = as.Date("2009-01-01"),
+    y = 0,
+    yend = 14.6, 
+    color = "#FFDE21", 
+    linetype = 2
+  )+
+  geom_point(aes(y = FDP_sum),
+             size = 2, 
+             show.legend = FALSE) +
+  scale_x_date(
+    breaks = unique(data$Jahr), 
+    date_labels = "'%y", 
+    expand = c(0,0), 
+    limits= c(as.Date("1949-01-01"), as.Date("2026-01-01"))) + 
+  scale_y_continuous(expand = c(0, 0), 
+                     breaks = c(data$FDP_sum, 50.2), 
+                     limits = c(0, 52)) + 
+  theme_classic() +
+  theme(axis.text.y = element_text(size=9))
+
+invisible(p_FDP)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-dpi: 300
+
+p_FDP
+```
+
+## Bündnis 90/Die Grünen
+
+Die Zweitstimmenanteile in Prozent (%)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+data <- data |> 
+  mutate(Grüne = if_else(Partei == "Bündnis 90/Die Grünen", Share, NA))
+
+data <- data |> 
+  mutate(nicht_Grüne = if_else(Partei != "Bündnis 90/Die Grünen", Share, NA)) 
+
+data <- data |> 
+  mutate(Grüne_sum = if_else(Grüne == max(Grüne, na.rm = TRUE) | Grüne == min(Grüne, na.rm = TRUE) | Jahr == as.Date("2025-01-01"), Grüne, NA)) 
+
+p_Grüne <- data |> 
+  ggplot(aes(
+    x = Jahr, 
+    y = Grüne, 
+    color = Partei)) + 
+    geom_hline(aes(yintercept = 5), alpha = 0.3, linetype = "dotted") +
+  geom_line(size = 0.7) + 
+  geom_line(aes(y = nicht_Grüne), 
+            alpha = 0.1) +
+ labs(y = "") +
+  scale_color_manual(values = 
+                       c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
+                     labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
+  annotate(
+    "segment",
+    x = as.Date("2025-01-01"),
+    y = 0,
+    yend = 11.6, 
+    color = "#1AA037", 
+    linetype = 2
+  ) +
+  annotate(
+    "segment",
+    x = as.Date("2021-01-01"),
+    y = 0,
+    yend = 14.8, 
+    color = "#1AA037", 
+    linetype = 2
+  )+
+  annotate(
+    "segment",
+    x = as.Date("1990-01-01"),
+    y = 0,
+    yend = 1.2, 
+    color = "#1AA037", 
+    linetype = 2
+  )+
+  geom_point(aes(y = Grüne_sum),
+             size = 2, 
+             show.legend = FALSE) +
+  scale_x_date(
+    breaks = unique(data$Jahr), 
+    date_labels = "'%y", 
+    expand = c(0,0), 
+    limits= c(as.Date("1949-01-01"), as.Date("2026-01-01"))) + 
+  scale_y_continuous(expand = c(0, 0), 
+                     breaks = c(data$Grüne_sum, 50.2), 
+                     limits = c(0, 52)) + 
+  theme_classic() +
+  theme(axis.text.y = element_text(size=9))
+
+invisible(p_Grüne)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-dpi: 300
+
+p_Grüne
+```
+
+## Die Linke
+
+Die Zweitstimmenanteile in Prozent (%)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+data <- data |> 
+  mutate(Linke = if_else(Partei == "Die Linke. PDS", Share, NA))
+
+data <- data |> 
+  mutate(nicht_Linke = if_else(Partei != "Die Linke. PDS", Share, NA)) 
+
+data <- data |> 
+  mutate(Linke_sum = if_else(Linke == max(Linke, na.rm = TRUE) | Linke == min(Linke, na.rm = TRUE) | Jahr == as.Date("2025-01-01"), Linke, NA)) 
+
+
+p_Linke <- data |> 
+  ggplot(aes(
+    x = Jahr, 
+    y = Linke, 
+    color = Partei)) + 
+    geom_hline(aes(yintercept = 5), alpha = 0.3, linetype = "dotted") +
+  geom_line(size = 0.7) + 
+  geom_line(aes(y = nicht_Linke), 
+            alpha = 0.1) +
+  labs(y = "") +
+  scale_color_manual(values = 
+                       c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
+                     labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
+  annotate(
+    "segment",
+    x = as.Date("2025-01-01"),
+    y = 0,
+    yend = 8.8, 
+    color = "purple", 
+    linetype = 2
+  ) +
+  annotate(
+    "segment",
+    x = as.Date("2009-01-01"),
+    y = 0,
+    yend = 11.9, 
+    color = "purple", 
+    linetype = 2
+  )+
+  annotate(
+    "segment",
+    x = as.Date("1990-01-01"),
+    y = 0,
+    yend = 2.4, 
+    color = "purple", 
+    linetype = 2
+  )+
+  geom_point(aes(y = Linke_sum),
+             size = 2, 
+             show.legend = FALSE) +
+  scale_x_date(
+    breaks = unique(data$Jahr), 
+    date_labels = "'%y", 
+    expand = c(0,0), 
+    limits= c(as.Date("1949-01-01"), as.Date("2026-01-01"))) + 
+  scale_y_continuous(expand = c(0, 0), 
+                     breaks = c(data$Linke_sum, 50.2), 
+                     limits = c(0, 52)) + 
+  theme_classic() +
+  theme(axis.text.y = element_text(size=9))
+
+invisible(p_Linke)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-dpi: 300
+
+p_Linke
+```
+
+## AfD
+
+Die Zweitstimmenanteile in Prozent (%)
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+data <- data |> 
+  mutate(AFD = if_else(Partei == "AfD", Share, NA))
+
+data <- data |> 
+  mutate(nicht_AFD = if_else(Partei != "AfD", Share, NA)) 
+
+data <- data |> 
+  mutate(AFD_sum = if_else(AFD == max(AFD, na.rm = TRUE) | AFD == min(AFD, na.rm = TRUE) | Jahr == as.Date("2025-01-01"), AFD, NA)) 
+
+
+p_AFD <- data |> 
+  ggplot(aes(
+    x = Jahr, 
+    y = AFD, 
+    color = Partei)) + 
+    geom_hline(aes(yintercept = 5), alpha = 0.3, linetype = "dotted") +
+  geom_line(size = 0.7) + 
+  geom_line(aes(y = nicht_AFD), 
+            alpha = 0.1) +
+  labs(y = "") +
+  scale_color_manual(values = 
+                       c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
+                     labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
+  annotate(
+    "segment",
+    x = as.Date("2025-01-01"),
+    y = 0,
+    yend = 20.8, 
+    color = "#0489DB", 
+    linetype = 2
+  ) +
+  annotate(
+    "segment",
+    x = as.Date("2013-01-01"),
+    y = 0,
+    yend = 4.7, 
+    color = "#0489DB", 
+    linetype = 2
+  )+
+  geom_point(aes(y = AFD_sum),
+             size = 2, 
+             show.legend = FALSE) +
+  scale_x_date(
+    breaks = unique(data$Jahr), 
+    date_labels = "'%y", 
+    expand = c(0,0), 
+    limits= c(as.Date("1949-01-01"), as.Date("2026-01-01"))) + 
+  scale_y_continuous(expand = c(0, 0), 
+                     breaks = c(data$AFD_sum, 50.2), 
+                     limits = c(0, 52)) + 
+  theme_classic() +
+  theme(axis.text.y = element_text(size=9))
+
+invisible(p_AFD)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 5
+#| fig-dpi: 300
+
+p_AFD
+```

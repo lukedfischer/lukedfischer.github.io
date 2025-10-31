@@ -1,5 +1,5 @@
 git remote add origin https://github.com/lukedfischer/lukedfischer.github.io
 git branch -M main
 git add --all
-git commit -m "Ukraine2025.2"
+git commit -m "Ukraine2025.4"
 git push -u origin main
