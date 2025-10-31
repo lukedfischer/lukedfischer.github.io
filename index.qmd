@@ -4,7 +4,7 @@ title: "Luke Fischer"
 
 ::: {.columns}
 ::: {.column width="40%"}
-![](Images/Luke%201.2.jpg){.img-fluid}
+![](Images/Luke 1.2.jpg){.img-fluid}
 :::
 
 ::: {.column width="60%"}
