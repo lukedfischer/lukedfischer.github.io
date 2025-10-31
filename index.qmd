@@ -2,12 +2,4 @@
 title: "Luke Fischer"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-
-hdshzs
-```
+Welcome to my Personal Website.
