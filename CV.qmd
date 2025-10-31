@@ -3,6 +3,6 @@ title: "CV"
 toc: false
 ---
 See my CV
-![](images/clipboard-3102913620.png)
+![](Images/CV1.png)
 ---
-![](images/clipboard-1293205067.png)
+![](Images/CV2.png)
