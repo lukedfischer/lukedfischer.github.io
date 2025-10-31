@@ -2,7 +2,7 @@
 title: "CV"
 toc: false
 ---
-
+See my CV
 ![](images/clipboard-3102913620.png)
 ---
 ![](images/clipboard-1293205067.png)
