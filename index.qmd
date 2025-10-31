@@ -2,6 +2,16 @@
 title: "Luke Fischer"
 ---
 
-![](path/to/your-image.jpg){ width=200px style="border-radius:50%; display:block; margin-left:auto; margin-right:auto;" }
+::: {.columns}
+::: {.column width="40%"}
+![](/Users/lukefischer/Dropbox/Website/lukedfischer.github.io/Images/Luke 1.2.jpg){.img-fluid}
+:::
+
+::: {.column width="60%"}
+**Some text on the side of the image.**
+
+You can add more text or markdown here.
+:::
+:::
 
 Welcome to my Personal Website.
