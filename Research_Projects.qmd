@@ -6,6 +6,6 @@ title: "Research Projects"
 
 ### Democracy Under Fire
 
-![](Images/Ukraine_Thumbnail.png)
+[![](Images/Ukraine_Thumbnail.png)](https://lukedfischer.github.io/docs/ResearchProjects/Ukraine2025.html)
 
 Citation: Fischer, L., Dziundziuk, V., & Bakker, B. N. (2025, July 31). Democracy Under Fire: Threat Perception and Political Attitudes During the War in Ukraine. Retrieved from osf.io/8jnbc
