@@ -3,12 +3,15 @@ project:
   output-dir: docs
 
 website:
-  title: "Luke Fischer"
+  title: "Luke D. Fischer"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - CV.qmd
+      - href: CV.qmd
+        text: CV
+      - href: Research_Projects.qmd
+        text: Research Projects
 
 format:
   html:
