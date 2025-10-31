@@ -1,7 +1,6 @@
 ---
-title: "Democracy Under Fire: Democracy Under Fire: Threat Perception and Political Attitudes During the War in Ukraine"
-author: "Fischer, L., Dziundziuk, V., & Bakker, B. N."
-date: "2025"
+title: "Democracy Under Fire: Threat Perception and Political Attitudes During the War in Ukraine"
+authors: "Fischer, L., Dziundziuk, V., & Bakker, B. N."
 ---
 
 ::: center
