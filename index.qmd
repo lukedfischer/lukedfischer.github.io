@@ -2,4 +2,6 @@
 title: "Luke Fischer"
 ---
 
+![](path/to/your-image.jpg){ width=200px style="border-radius:50%; display:block; margin-left:auto; margin-right:auto;" }
+
 Welcome to my Personal Website.
