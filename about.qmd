@@ -1,7 +1,0 @@
----
-title: "CV"
----
-
-<iframe src="PDFs/CV%20Luke%20Fischer.pdf" width="100%" height="1200px" style="border:none;">
-
-</iframe>
