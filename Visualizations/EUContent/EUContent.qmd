@@ -1,0 +1,813 @@
+---
+title: "EU Content Exposure"
+toc: TRUE
+---
+
+# Prerequisites
+
+The following packages were used: `tidyverse`, `ggplot2`, `knitr`, `patchwork`, and `visreg`.
+
+```{r}
+#| include: false
+
+# Load packages
+
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(patchwork)
+library(visreg)
+
+# Load data sets
+
+Respondents <- read_csv("Respondents")
+
+RespondentsWaves <- read_csv("RespondentsWaves")
+
+Content <- read_csv("Content")
+
+# Note that comments for consistent design choices are only mentioned once. 
+```
+
+# Research Question
+
+> **How does exposure to Dutch news coverage of the EU relate to EU election turnout intentions over time (and eventual turnout)?**
+
+To skip all intermediate sections, head straight to the [Research Question Visualization].
+
+*Supplementary note*: At the beginning of this report, I would like to inform the reader about the decision of including the variable of actual election turnout in my research question. Turnout intentions were measured at three different points in time. Importantly, turnout intentions were only measured before the election and the fourth measurement wave occurred after the 2014 EU election. Thus, the fourth wave measured actual turnout. As a substitute measure for turnout intentions, I chose to correlate exposure to EU news within the fourth exposure period with actual EU turnout.
+
+## ▪️ *Coverage of the EU Across News Cycles*
+
+#### Assigning News Content to News Cycles
+
+As I was interested in examining the relationship between EU news exposure and turnout intentions over time (and eventual actual turnout), I had to identify which news coverage exposure to examine in relationship with each of the three measurement times of turnout intention and with the single measure of actual turnout.
+
+I wanted to examine how specific content at a specific point in time uniquely related to each wave measurement of turnout intentions. This would allow me to speculate that potentially different relationships between exposure to EU news and turnout intentions over time would perhaps be due to the exposure to news content unique to a certain news cycle. Therefore, the turnout intentions in one wave were later correlated with the consumption of unique, idiosyncratic news coverage of the EU leading up to these turnout intentions. I categorized the analyzed content into different **news cycles**, thereby capturing only the news individuals were exposed to in the news cycle that preceded a specific survey wave, *excluding* the news preceding a prior wave. Consequently, I had to create four news cycles, each containing news coverage that uniquely precedes each wave measuring turnout intentions.
+
+I decided that a news cycle should end on the last day of data collection of a wave with whose scores an individuals content exposure would be created. While individuals early on in the data collection wave were not exposed to this content, using this end day of a news cycle allowed me to be certain that individuals later on in a data collection wave were not exposed to content that I did not account for. Additionally, since actual turnout occurs on the day of the election and not at the point in time when the fourth measurement wave occurred, the fourth news cycle ends the day before election day (May 21st, 2014).
+
+Furthermore, each news cycle starts one day after the last day of data collection of a prior wave, except for the first news cycle. The first day where news content was analyzed is used as the start of the first news cycle.
+
+The start and end dates of each news cycle are as follows:
+
+```{r}
+#| echo: false
+#| warning : false 
+#| message: false
+
+#gets suppressed because warning and message are irrelevant
+
+# This section creates a table overview with start and end dates of four news cycles, which are created based on the last day of a measurement wave of the survey, whose data is stored in RespondentsWaves. The last day of the fourth news cycle ends on election day, as we try to predict actual voter turnout on election day with EU news exposure prior to election day. 
+
+End1 <- RespondentsWaves |> 
+  filter(wave == 1) |> 
+  distinct(date) |> 
+  arrange(date) |> 
+  summarize(end_newscycle1 = max(date)) 
+  
+
+End2 <- RespondentsWaves |> 
+  filter(wave == 2) |> 
+  distinct(date) |> 
+  arrange(date) |> 
+  summarize(end_newscycle2 = max(date))
+ 
+
+End3 <- RespondentsWaves |> 
+  filter(wave == 3) |> 
+  distinct(date) |> 
+  arrange(date) |> 
+  summarize(end_newscycle3 = max(date))
+
+
+
+End4<- tibble(
+  end_newscycle4 = as.Date("2014-05-21")
+) 
+
+tibble(
+  Cycle = c("First News Cycle", "Second News Cycle", "Third News Cycle", "Fourth News Cycle"), 
+  End = c(
+    End1$end_newscycle1[1], 
+    End2$end_newscycle2[1], 
+    End3$end_newscycle3[1], 
+    End4$end_newscycle4[1])
+) |> 
+  mutate(Start = if_else(
+    is.na(lag(End)), as.Date("2013-12-02"),lag(End) + day(1)),
+    Start = format(Start, "%d.%m.%Y"), 
+    End = format(End, "%d.%m.%Y")) |> 
+  relocate(Start, .before = End) |> 
+  kable()
+
+
+
+```
+
+Here is a visualization of the duration of each news cycle:
+
+##### Figure 1.
+
+```{r}
+#| echo: false
+#| warning: false
+
+
+# The Warning message can be ignored because the time zone setting is irrelevant to this report. 
+# This code creates a table from RespondentsWaves that contains information on when  news cycle starts, when it ends, and when the previous cycle ended.  
+News_Cycle <- RespondentsWaves |> 
+  group_by(wave) |> 
+  summarize(start = min(date), end = max(date)) |>
+  mutate(
+    prior_end = lag(end) + day(1), # start of cycle is always the day after the end of a prior wave
+    prior_end = if_else(is.na(prior_end), as.Date("2013-12-02"), prior_end), 
+    end = if_else(end == "2014-06-02", as.Date("2014-05-21"), end)) 
+  
+
+News_Cycle |> ggplot(aes(x = end, y = wave)) + 
+  geom_segment(aes(x = prior_end, xend = end,  yend = wave), na.rm = TRUE,color = "blue") +
+  geom_point() +
+  scale_x_date(
+    name = "Time",
+    breaks = c(News_Cycle$end, as.Date("2013-12-02")),  # I wanted to display the ends of each news cycle and the start of news cycle 1
+    date_labels = "%d.%m.%y") + 
+  labs(title = "A Visualization of the Duration of the Four News Cycles", y = "News Cycles") + 
+  theme_classic() + # My chosen theme. Consistent across all themes.
+  theme(
+    title = element_text(size = 11), # My chosen figure heading font size. Consistent cross all figures. 
+    plot.title = element_text(hjust = 0.5, face = "bold")) # Make titles bold and center
+
+```
+
+Having figured out the duration of each news cycle, the content must be assigned an news cycle. I did so by creating a news cycle variable called `cycle`.
+
+As can be seen, most news content was collected and analyzed during news cycle 2. This is unsurprising given that news cycle 2 was by far the longest.
+
+##### Figure 2.
+
+```{r}
+#| echo: false
+
+# Assigning news items a news cycle. Items after the election are coded 0. 
+Content <- Content |> 
+  mutate(cycle = case_when(
+    date <= "2013-12-26" ~ 1,
+    date <= "2014-03-30" & date >= "2013-12-27" ~ 2, 
+    date <= "2014-04-28" & date >= "2014-03-31" ~ 3, 
+    date <= "2014-05-22" & date >= "2014-04-29" ~ 4, 
+    date <= "2014-06-02" & date > "2014-05-22" ~ 0
+  ), cycle = factor(cycle)) |> 
+  # Filtering out non-Dutch newsoutlets & news items after the election
+  filter(news_outlet != "Outlet 1" & news_outlet != "Outlet 2" & news_outlet != "Outlet 3") |> 
+  filter(cycle != 0) 
+
+# Visualizing the absolute number of collected news items per cycle 
+Content |> 
+  ggplot(aes(x = cycle, fill = cycle)) + 
+  geom_bar() + 
+  labs(
+    title = "Number of Collected News Items per News Cycle", 
+    x = "News Cycle", 
+    y = "Number of Collected News Items", 
+    fill = "News Cycle"
+  ) + 
+  scale_fill_manual(
+    values = c("1" = "#F8766D", "2" = "#00BA38", "3" = "#619CFF", "4" = "#ff33ec")) + # These are my chosen news cycle colors
+  theme_classic() + 
+  theme(title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+As can be seen, across the news cycles, the number of news items collected from one type of outlet relative to the number of news items analyzed from another outlet remained consistent. Within each news cycle, most items were collected from newspapers, followed by television items, followed by items online:
+
+##### Figure 3.
+
+```{r}
+#| echo: false
+
+# Creating a factor variable that categorizes news outlets into outlet types
+Content <- Content |> 
+  mutate(news_outlet = factor(news_outlet), 
+         outlet_type = fct_collapse(news_outlet, 
+           newspaper = c("de Telegraaf", "de Volkskrant", "NRC Handelsblad"), 
+           television = c("NOS Journaal", "RTL Nieuws"), 
+           online = "nu.nl"
+         )
+  ) 
+
+# visualizing the absolute number of news item per cycle for each outlez type 
+Content |> 
+  ggplot(aes(x = cycle, fill = cycle)) + geom_bar() + facet_wrap(~outlet_type) + 
+  labs(
+    title = "Number of Collected News Items per News Cycle,\nSeparated by Outlet Type ",
+    x = "News Cycle", 
+    y = "Number of Collected News Items", 
+    fill = "News Cycle"
+  ) + 
+  scale_fill_manual(
+    values = c("1" = "#F8766D", "2" = "#00BA38", "3" = "#619CFF", "4" = "#ff33ec")) + 
+  theme_classic() + 
+  theme(title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+
+```
+
+I also wanted to assess in which time period most articles were gathered without categorizing items by news cycle. Most articles were gathered just before the 2014 EU elections:
+
+##### Figure 4.
+
+```{r}
+#| echo: false
+
+# Visualizing the amount of news items collected across time 
+Content |> 
+  ggplot(aes(x = date)) + geom_density() + 
+  labs(
+    title = "Amount of News Items Collected Across Time", 
+    x = "Time",
+    y = "Density"
+  ) + 
+  scale_x_date( date_labels = "%b %Y") + # provide information on month and year
+  theme_classic() + 
+  theme(title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+
+```
+
+To examine whether a news item covered the EU, I altered the variable `eu_evaluation` by turning it into an EU coverage variable. The `eu_evaluation` variable is a variable that also contains information on whether a news item mentioned the EU:
+
+```{r}
+#| echo: false
+
+
+# Showing which values belong to eu_evaluation. This allows us to infer which values imply that a story mentioned the EU
+Content |> 
+  distinct(eu_evaluation) |> 
+  kable()
+```
+
+As can be seen above, the variable contains eight different values - seven of which implying that a news item mentioned the EU based on the fact that information is provided as to how the EU was evaluated. It is assumed that missing values in turn indicate that an article did not mention the EU.
+
+Thus, a variable can be created that assigns a value of 1 to those articles mentioning the EU and a 0 to those articles not mentioning the EU (i.e. the ones with missing values on `eu_evaluation`). This variable was termed `eu_mention`.
+
+```{r}
+#| echo: false
+
+# Creating a variable that shows whether a news item mentioned the EU (1) or not (0)
+Content <- Content |> 
+  mutate(eu_mention = if_else(!is.na(eu_evaluation), 1, 0), eu_mention = factor(eu_mention)
+         )
+```
+
+Now we can assess how often the EU was mentioned relative to other news content in a news cycle. As the following graph shows, the EU was mentioned the most in news cycle 4, the cycle preceding the EU elections:
+
+##### Figure 5.
+
+```{r}
+#| echo: false
+
+# Visualizing the number of news items covering the EU in a news cycle, relative to items not mentioning the EU. 
+
+Content |> 
+  group_by(cycle) |> # we want to check within each cycle how often the EU was covered
+  count(eu_mention) |> # get the absolue numbers of coverage of the EU (and non-coverage) per news cycle
+  mutate(prop_mention = n/(n + lag(n))) |> # getting the proportion of news items covering the EU per cycle
+  ggplot(aes(x = cycle, y = prop_mention, fill = cycle)) + 
+  geom_col(na.rm = TRUE) +
+  labs(
+    title = "Relative Coverage of the EU per News Cycle", 
+    x = "News Cycle", 
+    y = "Rel. Mentioning of EU", 
+    fill = "News Cycle"
+  ) + 
+  scale_fill_manual(
+    values = c("1" = "#F8766D", "2" = "#00BA38", "3" = "#619CFF", "4" = "#ff33ec")) + 
+  theme_classic() + 
+  theme(title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+
+
+```
+
+I further visualized how often the EU was mentioned in news articles across the entire time in which news items were gathered. I did this by examining the number of news items mentioning the EU relative to other news coverage on a given day. As can be seen, the coverage of the EU first decreased between early December and January, then increased until late February, decreased again until late April, and started increasing again leading up to the EU elections on May 22nd. Note that the news cycles are visualized with different colors in the background.
+
+##### Figure 6.
+
+```{r}
+#| echo: false
+
+# Visualizing the number of news items covering the EU in per day, relative to items not mentioning the EU. This is analogous to the code chunk above.
+
+ContentTime <- Content |> 
+  group_by(date) |> 
+  count(eu_mention) |> 
+  mutate(prop_mention = n/(n + lag(n))) |> 
+ filter(prop_mention != is.na(prop_mention)) # excluding missing values to create line chart only with relative values of EU coverage per day
+
+ContentTime |> 
+  left_join(Content, join_by(date)) |> 
+  select(c(date, eu_mention.x, n, prop_mention, cycle)) |> 
+  ggplot(aes(x = date, y = prop_mention)) + 
+  geom_line(aes(color = cycle), alpha = 0.5) + # I made this graph transparent so the gray general trend line is more apparent 
+  geom_smooth(se = FALSE, method = "gam", formula = y ~ s(x, bs = "cs"), color = "#5f5f5f") + # I also wanted to create a smooth line that shows the general trend of EU coverage over time
+  scale_color_manual(
+    values = c("1" = "#F8766D", "2" = "#00BA38", "3" = "#619CFF", "4" = "#ff33ec")) +
+  scale_x_date( date_labels = "%b %Y") + 
+  labs(
+    title = "Coverage of the EU Per Day, Relative to Other News Content", 
+    x = "Time", 
+    y = "Rel. Coverage of EU",
+    color = "News Cycle") + 
+  theme_classic() + 
+  theme(title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"), 
+        legend.position = "top", # move legend to top of plot
+        legend.title.position = "top", # more legend title to top of legend
+        legend.title = element_text(hjust=0.5)) # make legend title centered over legend
+```
+
+As shown below, the change in relative mentioning of the EU over time was very similar across the analyzed outlet types (newspapers, television channels, and online news-sites). For most of the time during which news items were collected, the online online news-site mentioned the EU more than the other two outlet types (albeit in relative terms).
+
+##### Figure 7.
+
+```{r}
+#| echo: false
+
+ContentTime |> 
+  left_join(Content, join_by(date)) |> 
+  ggplot(aes(x = date, y = prop_mention)) + 
+  geom_line(alpha = 0.3)  + # the focus should be on the general trend of covering the EU per outlet type- thus, I reduced the transparency
+  geom_smooth(aes(
+    color = outlet_type), method = 'gam', formula = y ~ s(x, bs = "cs"), se = FALSE) + 
+  scale_color_manual(
+    values = c("newspaper" = "#F8766D", "television" = "#00BA38", "online" = "#619CFF")) + # this time I used the same colors as the news cycles to denote different outlet types in order to stay consistent with the colors in my visual report 
+    scale_x_date( date_labels = "%b %Y") + 
+  labs(
+    title = "Relative Mentioning of the EU Over Time by Outlet Type", 
+    x = "Time", 
+    y = "Rel. Mentioning of EU", 
+    color = "Outlet Type"
+  ) + 
+  theme_classic() +
+  theme(title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"), 
+        legend.position = "top", 
+        legend.title.position = "top", 
+        legend.title = element_text(hjust=0.5))
+
+```
+
+## ▪️ *Creating Exposure Variables*
+
+In order to eventually correlate exposure to news coverage of the EU with election turnout intentions and actual turnout, I had to create a variable that captures the exposure of an individual to EU coverage within a certain time.
+
+This was done following a method proposed by De Vreese et al. (2017).
+
+First, I multiplied the relative number of news items mentioning the EU (within a given news outlet) in the news cycle leading up to a measurement wave of political intention and the eventual election turnout with an individuals reported frequency of consuming that particular news outlet (as reported in the measurement wave following the news cycle). This reflected an exposure score to news coverage of the EU, weighted by how much the individual consumed the news outlet in the news cycle leading up to each survey wave.
+
+I then calculated the total sum of these weighted exposure scores per wave, resulting in a single value of exposure to EU news for an individual per wave. Values were stored in the variable `eu_exposure`.
+
+```{r}
+#| echo: false
+
+# Getting the proportions of EU coverage per outlet per news cycle.
+Prop_mention_1 <- Content |> 
+  filter(cycle == 1) |> 
+  group_by(news_outlet) |> 
+  count(eu_mention) |> 
+  mutate(prop_mention = n/(n + lag(n))) |> 
+  filter(eu_mention == 1)
+
+Prop_mention_2 <- Content |> 
+  filter(cycle == 2) |> 
+  group_by(news_outlet) |> 
+  count(eu_mention) |> 
+  mutate(prop_mention = n/(n + lag(n))) |> 
+  filter(eu_mention == 1)
+
+Prop_mention_3 <- Content |> 
+  filter(cycle == 3) |> 
+  group_by(news_outlet) |> 
+  count(eu_mention)|> 
+  mutate(prop_mention = n/(n + lag(n))) |> 
+  filter(eu_mention == 1)
+
+Prop_mention_4 <- Content |> 
+  filter(cycle == 4) |> 
+  group_by(news_outlet) |> 
+  count(eu_mention) |> 
+  mutate(prop_mention = n/(n + lag(n))) |> 
+  filter(eu_mention == 1)
+
+
+```
+
+```{r}
+#| echo: false
+
+# Linking coverage of EU within a news cycle for every outlet with a participant's reported consumption of the outlet. I access different rows of the above-created tibbles using the [] operator. 
+
+RespondentsWaves <- RespondentsWaves |> 
+  mutate(eu_exposure = if_else(wave == 1, (
+    Prop_mention_1$prop_mention[1]*NRCHandelsblad_exposure + 
+    Prop_mention_1$prop_mention[2]*RTLNieuws_exposure +
+    Prop_mention_1$prop_mention[3]*DeTelegraaf_exposure +
+    Prop_mention_1$prop_mention[4]*DeVolkskrant_exposure + 
+    Prop_mention_1$prop_mention[5]*nu.nl_exposure
+    ), NA
+                               ),
+    eu_exposure = if_else(wave == 2, (
+      Prop_mention_2$prop_mention[1]*NOSJournaal_exposure + 
+      Prop_mention_2$prop_mention[2]*NRCHandelsblad_exposure +
+      Prop_mention_2$prop_mention[3]*RTLNieuws_exposure +
+      Prop_mention_2$prop_mention[4]*DeTelegraaf_exposure + 
+      Prop_mention_2$prop_mention[5]*DeVolkskrant_exposure +
+      Prop_mention_2$prop_mention[5]*nu.nl_exposure
+    ), eu_exposure
+                          ),
+    
+    eu_exposure = if_else(wave == 3, (
+      Prop_mention_3$prop_mention[1]*NOSJournaal_exposure + 
+      Prop_mention_3$prop_mention[2]*NRCHandelsblad_exposure +
+      Prop_mention_3$prop_mention[3]*RTLNieuws_exposure +
+      Prop_mention_3$prop_mention[4]*DeTelegraaf_exposure + 
+      Prop_mention_3$prop_mention[5]*DeVolkskrant_exposure +
+      Prop_mention_3$prop_mention[5]*nu.nl_exposure
+    ), eu_exposure
+                          ),
+    
+    eu_exposure = if_else(wave == 4, (
+      Prop_mention_3$prop_mention[1]*NOSJournaal_exposure + 
+      Prop_mention_3$prop_mention[2]*NRCHandelsblad_exposure +
+      Prop_mention_3$prop_mention[3]*RTLNieuws_exposure +
+      Prop_mention_3$prop_mention[4]*DeTelegraaf_exposure + 
+      Prop_mention_3$prop_mention[5]*DeVolkskrant_exposure +
+      Prop_mention_3$prop_mention[5]*nu.nl_exposure
+    ), eu_exposure
+                          )
+  )
+
+
+```
+
+```{r}
+#| echo: false
+
+# Before visualization, last data transformations
+
+# Turning turnout_eu into a factor so that multiple values can be more easily combined into a binary factor variable using fct_collapse. 
+RespondentsWaves <- RespondentsWaves |> 
+  mutate(wave = factor(wave), 
+         turnout_eu = factor(turnout_eu), 
+         turnout_eu = fct_collapse(turnout_eu,
+           "yes" = "Ik heb op 22 mei gestemd voor de Europese Parlementsverkiezingen.", 
+           "no" = c("Ik dacht eraan te stemmen, maar deed het dit keer niet.", "Ik heb op 22 mei niet gestemd voor de Europese Parlementsverkiezingen.", "Ik stem meestal wel, maar dit keer niet.")
+          )
+         )
+
+# I filtered out individuals not partaking in all four waves as I was interested in intrapersonal changes in turnout intentions. 
+RespondentsWaves <- RespondentsWaves |> 
+  group_by(INTNR) |> 
+  mutate(n_waves = n_distinct(wave)) |> 
+  filter(n_waves == 4) |> 
+  ungroup()
+
+# I also wanted to be able to later control for prior turnout intentions. 
+RespondentsWaves <- RespondentsWaves |> 
+  group_by(INTNR) |> 
+  mutate(prior_int = lag(turnout_int_eu)) |> 
+  ungroup()
+
+```
+
+## ▪️ *Outlier Detection*
+
+In visualizing the distribution of values of our continuous variables of interest (`eu_exposure` & `turnout_int_eu`), using box plots, it appears there are outlier values for the variable of `eu_exposure` in each wave. No outliers seem to be present in `turnout_int_eu`.
+
+##### Figure 8.
+
+```{r}
+#| echo: false
+
+# Outlier detection
+
+p1 <- RespondentsWaves |> 
+  ggplot(aes(x = wave, y = eu_exposure)) + geom_boxplot() + labs(x = "Wave") + theme_classic()
+
+p2 <- RespondentsWaves |> 
+  filter(wave != 4) |> 
+  ggplot(aes(x = wave, y = turnout_int_eu)) + geom_boxplot() + labs(x = "Wave") + 
+  theme_classic()
+
+(p1 | p2)  + 
+  plot_annotation(
+    title = 'Distributions of the Main Continuous Variables per Wave', 
+  ) & 
+  theme(title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+Following outlier detection, I handled outliers on the variable of `eu_exposure` by replacing values greater than 1.5\*IQR above the third quartile as well as values smaller than 1.5\*IQR below the first quartile with the mean of `eu_exposure` (Note the caveats of winsorization using the mean).
+
+```{r}
+#| echo: false
+
+# Problem- handling outliers and replacing them with mean values within a particular wave- best is to create different data sets per wave and handle outliers there
+
+
+RespondentsWave1 <- RespondentsWaves |>
+  filter(wave == 1) |> 
+  mutate(eu_exposure = if_else(
+    eu_exposure < (quantile(eu_exposure, 0.25, na.rm = TRUE) - 1.5*IQR(eu_exposure, na.rm = TRUE)) |
+      eu_exposure > (quantile(eu_exposure, 0.75, na.rm = TRUE) + 1.5*IQR(eu_exposure, na.rm = TRUE)),
+    mean(eu_exposure, na.rm = TRUE), eu_exposure
+    )
+  )
+
+
+RespondentsWave2 <- RespondentsWaves |>
+  filter(wave == 2) |> 
+  mutate(eu_exposure = if_else(
+    eu_exposure < (quantile(eu_exposure, 0.25, na.rm = TRUE) - 1.5*IQR(eu_exposure, na.rm = TRUE)) |
+      eu_exposure > (quantile(eu_exposure, 0.75, na.rm = TRUE) + 1.5*IQR(eu_exposure, na.rm = TRUE)),
+    mean(eu_exposure, na.rm = TRUE), eu_exposure
+    )
+  )
+
+
+RespondentsWave3 <- RespondentsWaves |>
+  filter(wave == 3) |> 
+  mutate(eu_exposure = if_else(
+    eu_exposure < (quantile(eu_exposure, 0.25, na.rm = TRUE) - 1.5*IQR(eu_exposure, na.rm = TRUE)) |
+      eu_exposure > (quantile(eu_exposure, 0.75, na.rm = TRUE) + 1.5*IQR(eu_exposure, na.rm = TRUE)),
+    mean(eu_exposure, na.rm = TRUE), eu_exposure
+    )
+  )
+    
+
+RespondentsWave4 <- RespondentsWaves |>
+  filter(wave == 4) |> 
+  mutate(eu_exposure = if_else(
+    eu_exposure < (quantile(eu_exposure, 0.25, na.rm = TRUE) - 1.5*IQR(eu_exposure, na.rm = TRUE)) |
+      eu_exposure > (quantile(eu_exposure, 0.75, na.rm = TRUE) + 1.5*IQR(eu_exposure, na.rm = TRUE)),
+    mean(eu_exposure, na.rm = TRUE), eu_exposure
+    )
+  )
+
+#Combining all waves again
+
+RespondentsWaves <- bind_rows(RespondentsWave1, RespondentsWave2, RespondentsWave3, RespondentsWave4) |> 
+  arrange(INTNR)
+```
+
+Here is the distribution of values of `eu_exposure` per wave after the handling of outliers:
+
+##### Figure 9.
+
+```{r}
+#| echo: false
+
+RespondentsWaves |> 
+  ggplot(aes(x = wave, y = eu_exposure)) + 
+  geom_boxplot() + 
+  labs(
+    title = "Distribution of eu_exposure per Wave", 
+    x = "Wave") + 
+  theme_classic() + 
+  theme(
+    title = element_text(size = 11), 
+        plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
+# Research Question Visualization
+
+What now follows is the visualization of the research question.
+
+Note the second row of plots for the research question. The linear regression lines of the plots visualizing the association between turnout intentions and exposure to EU news represent associations that control for turnout intentions of a prior wave (only applicable to the second and third survey wave). The color of the regression lines corresponds to the news cycle to which individuals were exposed. The first row is an altered version of [Figure 6.], reminding the viewer about the frequency of news about the EU relative to other news, as well as when the three survey waves and the EU election occurred.
+
+##### Figure 10.
+
+```{r}
+#| echo: false
+#| warning: false
+
+# Again, visualizing the relative coverage of the EU 
+
+p5 <- ContentTime |> 
+  left_join(Content, join_by(date)) |> 
+  select(c(date, eu_mention.x, n, prop_mention, cycle)) |> 
+  ggplot(aes(x = date, y = prop_mention)) + 
+  geom_area(aes(fill = cycle), alpha = 0.7, show.legend = FALSE) + # To make the news cycles stand out more- I wanted them to look like four different chunks. Still- I wanted them to be a bit transparent 
+  geom_line(aes(color = cycle)) + # to make the edges of the geom_area look non-transparent
+  geom_smooth(se = FALSE, method = "gam", formula = y ~ s(x, bs = "cs"), color = "#5f5f5f") + # General trendline over time
+  scale_x_date(
+    name = NULL, # I thought that the dates themselves would suffice
+    date_labels = "%d.%m.%Y", # So that the year was visible and the eventual date of the election
+    limits = c(as.Date("2013-12-02"), as.Date("2014-05-22")),
+    breaks = c(as.Date("2013-12-02"), as.Date("2014-01-01"), as.Date("2014-02-01"), as.Date("2014-03-01"), as.Date("2014-04-01"), as.Date("2014-05-01"), as.Date("2014-05-22"))) + #I wanted to show the start of news cycle 1, the end of news cycle 4, and the first of every other month
+  scale_color_manual(
+    values = c("1" = "#F8766D", "2" = "#00BA38", "3" = "#619CFF", "4" = "#ff33ec")) + # again, the cycle colors 
+  scale_fill_manual(
+    values = c("1" = "#F8766D", "2" = "#00BA38", "3" = "#619CFF", "4" = "#ff33ec")) + 
+  labs(
+    y = "Relative\nCoverage of EU", 
+    color = "News Cycle") + 
+  theme_classic() +
+  theme(
+    legend.title.position = "top", # move legend title to top of legend
+    legend.title = element_text(hjust = 0.5)) + # make legend title centered
+  
+  # What follows is little "flags", indicating the end date of a survey wave - Instead of calling these end dates "Waves", I indicated an approximate date of the wave (i.e. its end date) to make sure that people understand later that around this day, a measurement of turnout intentions was taken. A date would be more understandable in relation to the title of the plot since the title speaks of intentions across time, not across waves. 
+  annotate(
+    geom = "segment", 
+    x = as.Date("2013-12-26"),
+    y = 0.5, # looked about right in the rendered version 
+    xend = as.Date("2013-12-26"), 
+    yend = 0, 
+  ) +
+  annotate(
+    geom = "label", 
+    x = as.Date("2013-12-26"), 
+    y = 0.6, # looked about right in the rendered version 
+    label = "around\nDec. 26th", 
+    hjust = "center", 
+    size = 3
+    
+  ) + 
+  annotate(
+    geom = "segment", 
+    x = as.Date("2014-03-30"), 
+    y = 0.5, 
+    xend = as.Date("2014-03-30"), 
+    yend = 0
+  ) +
+  annotate(
+    geom = "label", 
+    x = as.Date("2014-03-30"), 
+    y = 0.6, 
+    label = "around\nMar. 30th", 
+    hjust = "center", 
+    size = 3
+    
+  ) + 
+  annotate(
+    geom = "segment", 
+    x = as.Date("2014-04-28"), 
+    y = 0.5, 
+    xend = as.Date("2014-04-28"), 
+    yend = 0
+  ) +
+  annotate(
+    geom = "label", 
+    x = as.Date("2014-04-28"), 
+    y = 0.6, 
+    label = "around\nApr. 28th", 
+    hjust = "center", 
+    size = 3                  
+    
+  ) + 
+  annotate(
+    geom = "segment", 
+    x = as.Date("2014-05-22"), 
+    y = 0.5, 
+    xend = as.Date("2014-05-22"), 
+    yend = 0
+  ) +
+  annotate(
+    geom = "label", 
+    x = as.Date("2014-05-22"), 
+    y = 0.6, 
+    label = "EU\nElection", 
+    hjust = "center", 
+    size = 3
+  ) 
+
+
+# Visualizing the relationship between exposure to EU news leading up to wave 1 (news cycle 1) and EU election turnout intentions in wave 1
+
+Model_1 <- lm(turnout_int_eu ~ eu_exposure, data = RespondentsWave1) # It was easiest to use RespondentsWave1 and pass this into the linear model instead of filtering RespondentsWaves for only those of wave 1. 
+
+p6 <- visreg(Model_1, # I used visreg because I wanted to create a linear regression graph in which I could later control for prior intentions. This became relevent for Model_2, as here I had access to data from the prior survey wave. 
+       xvar = "eu_exposure", 
+       partial = FALSE,
+       rug = FALSE,
+       line= list(col="#F8766D"), # to indicate that the exposure to EU coverage specifically implies coverage of news cycle 1. 
+       gg = TRUE
+       ) +
+  scale_y_continuous(
+    limits = c(4,7), # so that the y scale would have the limits as the other two models, and there is no distortion across linear regression graphs 
+    breaks = c(4, 5.5, 7)) + # I wanted to use different breaks for every y scale (see below) because otherwise, they would have been "collected" by the patchwork. I also chose breaks that make clear through which values a regression line progresses. 
+  theme_classic() + 
+  labs(
+    x = "Exposure to EU\nCoverage in Cycle 1", 
+    y = "Election\nTurnout Intention") +
+  theme(axis.title.x = element_text(size =10)) + # I had to make it fit, otherwise it would have overlapped with other x scale titles
+  # what follows is an indication around which time the measure of exposure and turnout intentions was collected
+  annotate(
+    geom = "label", 
+    x = 3.4, 
+    y = 6.9, 
+    label = "~Dec. 26th", 
+    hjust = "center", 
+    size = 3)
+
+# Visualizing the relationship between exposure to EU news leading up to wave 2 (news cycle 2) and EU election turnout intentions in wave 2, controlling for turnout intentions of the prior wave. 
+
+Model_2 <-lm(turnout_int_eu ~ eu_exposure + prior_int , data = RespondentsWave2)
+
+p7 <- visreg(Model_2, 
+       xvar = "eu_exposure", 
+       partial = FALSE,
+       rug = FALSE,
+       line= list(col="#00BA38"),
+       gg = TRUE
+       ) +
+    scale_y_continuous(limits = c(4,7), breaks = c(4.25, 5.25, 6.25)) +
+  theme_classic() +
+  labs(x = "Exposure to EU\nCoverage in Cycle 2", 
+       y = "Election\nTurnout Intention") +
+  theme(axis.title.x = element_text(size =10)) + 
+  annotate(
+    geom = "label", 
+    x = 1.8, 
+    y = 6.9, 
+    label = "~Mar. 30th", 
+    hjust = "center", 
+    size = 3)
+
+# Visualizing the relationship between exposure to EU news leading up to wave 3 (news cycle 3) and EU election turnout intentions in wave 1, controlling for turnout intentions of the prior wave. 
+
+
+Model_3 <-lm(turnout_int_eu ~ eu_exposure + prior_int , data = RespondentsWave3)
+
+p8 <- visreg(Model_3, 
+       xvar = "eu_exposure", 
+       partial = FALSE,
+       rug = FALSE,
+       line= list(col="#619CFF"),
+       gg = TRUE
+       ) +
+    scale_y_continuous(limits = c(4,7), breaks = c(4.5, 5.5, 6.5)) +
+  theme_classic() + 
+  labs(x = "Exposure to EU\nCoverage in Cycle 3", y = "Election\nTurnout Intention") +
+  theme(axis.title.x = element_text(size =10)) + 
+  annotate(
+    geom = "label", 
+    x = 1.5, 
+    y = 6.9, 
+    label = "~Apr. 28th", 
+    hjust = "center", 
+    size = 3)
+
+# Visualizing the relationship between exposure to EU news leading up to wave 4 (news cycle 4) and actual EU election turnout. 
+
+p9 <- RespondentsWave4 |> 
+  ggplot(aes(x = eu_exposure, fill = turnout_eu)) + geom_density(color = "#ff33ec", alpha = 0.5) + scale_fill_manual(values = c("yes" = "#cccccc", "no" = "#474747")) + 
+  theme_classic() +
+  theme(
+    axis.title.x = element_text(size =10), 
+    axis.text.y = element_blank(), 
+    axis.ticks.y = element_blank(), 
+    legend.title = element_text(size = 8), 
+    legend.text = element_text(size = 8),
+    legend.key.size = unit(0.4, 'cm'), 
+    legend.position = c(0.8, 0.7)) + 
+  labs(
+    x = "Exposure to EU\nCoverage in Cycle 4", 
+    title = "", # To add more space in between the two rows of the patchwork
+    y = "Density",
+    fill = "Voted in the\nElection"
+  ) 
+
+# Arranging the plots. I wanted to put the legend for the news cycles, which also explain the different line colors of the graphs of the second row, on top of the graph. For readability, I also wanted to collect those y axis labels that were the same.
+# The reason why I put the research question visualizations underneath the relative coverage of the EU is because that way, an EU coverage exposure measure that was based on a certain news cycle was somewhat underneath the news cycle in the relative coverage graph. 
+
+((p5 + theme(legend.position = "top")) / ((p6 | p7 | p8 | p9) + plot_layout(axes = "collect")))  +
+  plot_layout(
+    heights = c(5, 6) # trial and error- looked the best in my opinion
+  ) + 
+  plot_annotation(
+    title = 'EU News Coverage Over Time & the Relationship between Exposure to\nEU News Coverage and Turnout Intentions Over Time (& Actual Turnout)'
+  ) & theme(
+    title = element_text(size = 11), 
+    plot.title = element_text(hjust = 0.5, face = "bold"))
+
+
+```
+
+## ▪️ *Result Interpretation and Answering the Research Question*
+
+The graphs of the second row visualize the following results:
+
+-   In wave 1 (around Dec. 26th), there is a *significant* negative relationship between exposure to EU news (published in news cycle 1) and intention to turnout in the EU election. This was ascertained using a linear regression model. Linear regression results are not presented in this report.
+
+-   In wave 2 (around Mar. 30th), there is a *non-significant* relationship between exposure to EU news (published in news cycle 2) and intention to turnout in the EU election. This was ascertained using a linear regression model, controlling for turnout intentions in the prior wave. Linear regression results are not presented in this report.
+
+-   In wave 3 (around Apr. 30th), there is a *significant* positive relationship between exposure to EU news (published in news cycle 3) and intention to turnout in the EU election. This was ascertained using a linear regression model, controlling for turnout intentions in the prior wave. Linear regression results are not presented in this report.
+
+-   There is *no significant* relationship between exposure to EU news (published in news cycle 4) and actual turnout in the EU elections. Non-significance was inferred based on overlapping density plots.
+
+# References
+
+-   De Vreese, C. H., Boukes, M., Schuck, A., Vliegenthart, R., Bos, L., & Lelkes, Y. (2017). Linking survey and media content data: Opportunities, considerations, and pitfalls. *Communication Methods and Measures*. <https://www.tandfonline.com/doi/abs/10.1080/19312458.2017.1380175>

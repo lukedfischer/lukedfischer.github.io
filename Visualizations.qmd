@@ -7,3 +7,9 @@ title: "Visualizations"
 ### Second Vote Share German Parties
 
 [![](Images/Zweitstimmenanteile.png)](https://lukedfischer.github.io/Visualizations/Zweitstimmenanteile/Zweitstimmenanteil.html)
+
+## 2024
+
+### EU News Exposure and Vote Intentions
+
+[![](Images/EUContent.png)](https://lukedfischer.github.io/Visualizations/EUContent/EUContent.html)
