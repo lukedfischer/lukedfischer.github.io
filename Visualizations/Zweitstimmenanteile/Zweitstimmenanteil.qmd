@@ -74,9 +74,9 @@ p_general <- data |>
                        c("black", "#E3000F", "#FFDE21", "#1AA037", "purple", "#0489DB", "gray"), 
                      labels = c("CDU/CSU", "SPD", "FDP", "Bündnis 90/Die Grünen", "Die Linke", "AfD", "Sonstige")) +
   theme_classic()
-
-p_general
 ```
+
+![](/Images/p_general.gif){alt="General p animation"}
 
 ## CDU/CSU
 

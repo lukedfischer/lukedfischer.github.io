@@ -5,3 +5,5 @@ title: "Visualizations"
 ## 2025
 
 ### Second Vote Share German Parties
+
+[![](Images/Zweitstimmenanteile.png)](https://lukedfischer.github.io/Visualizations/Zweitstimmenanteile/Zweitstimmenanteil.html)
