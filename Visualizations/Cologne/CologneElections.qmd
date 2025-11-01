@@ -1,12 +1,6 @@
 ---
 title: "Bundestagswahlergebnisse Köln"
 author: "Luke D. Fischer"
-format: html
-editor: visual
-lang: de
-theme: 
-  - cosmo
-  - styles.scss
 toc: TRUE
 ---
 

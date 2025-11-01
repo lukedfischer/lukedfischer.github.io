@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Luke D. Fischer">
+<meta name="dcterms.date" content="2024-10-18">
+<meta name="description" content="On the state of affective polarization research and potential future avenues">
+
+<title>Reconceptualizing Affective Polarization – Luke D. Fischer</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3b7f4aff7acac744aa1d596ce5db2ede.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Luke D. Fischer</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../CV.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Research_Projects.html"> 
+<span class="menu-text">Research Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Visualizations.html"> 
+<span class="menu-text">Visualizations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><strong>Introduction</strong></a></li>
+  <li><a href="#delineating-affective-polarization" id="toc-delineating-affective-polarization" class="nav-link" data-scroll-target="#delineating-affective-polarization"><strong>Delineating Affective Polarization</strong></a></li>
+  <li><a href="#empirical-findings" id="toc-empirical-findings" class="nav-link" data-scroll-target="#empirical-findings"><strong>Empirical Findings</strong></a></li>
+  <li><a href="#empirical-problems" id="toc-empirical-problems" class="nav-link" data-scroll-target="#empirical-problems"><strong>Empirical Problems</strong></a></li>
+  <li><a href="#suggestions-for-future-research" id="toc-suggestions-for-future-research" class="nav-link" data-scroll-target="#suggestions-for-future-research"><strong>Suggestions for Future Research</strong></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><strong>References</strong></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Reconceptualizing Affective Polarization</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Affective Polarization</div>
+    <div class="quarto-category">Attitudes</div>
+    <div class="quarto-category">Network Models</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    On the state of affective polarization research and potential future avenues
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://lukedfischer.github.io/">Luke D. Fischer</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of Amsterdam
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 18, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction"><strong>Introduction</strong></h2>
+<blockquote class="blockquote">
+<p>A house divided against itself cannot stand.</p>
+</blockquote>
+<p>—Abraham Lincoln, <em>House Divided Speech</em>, 1858</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Concerns about political divides are omnipresent in discussions about contemporary politics. News headlines repeatedly lament political chasms in various democracies (e.g., Balmer, 2018; Ruf, 2024; Searcey, 2024). At the same time, political violence has proliferated (e.g., Fürstenau, 2024), supporting the notion of rifts and considerable animosity in the political sphere. Unsurprisingly, research has aimed to examine the division, or what is commonly referred to as polarization, in politics. Lelkes (2016) describes how scholars commonly refer to <em>existing</em> or <em>growing</em> political division when discussing polarization in the realm of politics. In other words, polarization refers to both a condition and a process. The author notes how political division can, inter alia, be assessed among political partisans (i.e., those who express party identifications) and on three dimensions. Ideological polarization and perceived polarization refer to actual or construed divides in partisans’ ideology, namely, “their […] values or political beliefs (van Prooijen, 2021, p.&nbsp;2). The third dimension of partisan division is affective polarization<em>,</em> which aims to capture political division based on interparty animosity. This latter dimension is often viewed as a threat to democratic stability (Edsall, 2024). &nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To assess whether research supports this view, this paper provides an overview of affective polarization, traces its theoretical foundation, and describes its empirical antecedents. This paper then describes the extent of affective polarization internationally and its potential consequences for political systems based on behavioral outcomes. Subsequently, the conceptual clarity of affective polarization and its theoretical generalizability to multi-party contexts are critiqued. Finally, I advocate for a reconceptualization of affective polarization by considering it an attitudinal construct with multiple conceptual dimensions and contextual dependencies. Notably, non-political consequences are not discussed because this line of research has predominantly not assessed affective polarization but rather conceptual proxies (Druckman &amp; Levy, 2022) and because the link to democratic stability is not explicit.</p>
+</section>
+<section id="delineating-affective-polarization" class="level2">
+<h2 class="anchored" data-anchor-id="delineating-affective-polarization"><strong>Delineating Affective Polarization</strong></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Affective polarization had received little empirical attention until a seminal paper by Iyengar et al.&nbsp;(2012)&nbsp;shifted the conversation from ideological divisions to divisions based on social identity. A person’s social identity comprises “that part of an individual’s self-concept which derives from [their] knowledge of [their] membership of a social group (or groups) […]” (Tajfel, 1978, p.&nbsp;66). The authors argue that differences in political opinions insufficiently capture political divisions. Instead, a more meaningful conceptualization is the extent to which we negatively evaluate people from the out-party (i.e., the party we oppose) in contrast to how positively we evaluate people from the in-party (i.e., the party we support). Notably, positive and negative evaluations of the in- and out-party are referred to as ‘affect.’ This view on polarization draws on social identity theory (SIT; Tajfel &amp; Turner, 1979, 1986).</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIT proposes that we aim for positive self-evaluations, and since the construal of ourselves partly depends on what groups we belong to (i.e., in-groups), we strive to evaluate our in-groups favorably. As people judge the favorability of their in-group in contrast to other groups (i.e., out-groups), people seek to view their in-groups as more favorable than their out-groups. Iyengar et al.&nbsp;(2012) assert that components of individuals’ social identities are based on the political in-group. Accordingly, favorable judgments of the in-party accompany unfavorable out-party judgments. Consequently, this disparity in favorability evaluations is conceptualized as a form of polarization based on affect, videlicet, “affective polarization” (Iyengar et al., 2012, p.&nbsp;407). Building upon this social identity approach to polarization, Iyengar and Westwood (2015) defined affective polarization as “the tendency of people identifying as Republicans or Democrats to view opposing partisans negatively and co-partisans positively” (p.&nbsp;691). While this definition is tailored to an American context, scholars outside the United States (US) have replaced the words ‘Republicans or Democrats’ with ‘partisans’ (e.g., Lee et al., 2023, p.&nbsp;2). &nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Iyengar et al.&nbsp;(2019) describe several antecedents of affective polarization with robust empirical support. One such antecedent is what Lelkes (2016) refers to as ideological consistency. As the ideological variance among co-partisans decreases, intraparty differences (and thus disagreements) subside, while interparty differences become apparent. Subsequently, this amplified perception of contrasting social identities stimulates negative out-party evaluations. Next, the authors mentioned ideological divergence (see Lelkes, 2016) as another precursor of affective polarization. Accordingly, affective polarization not only increases when parties become more ideologically homogenous but also when they become more extreme. Finally, affective polarization follows exposure to political campaigns for two reasons. Individuals’ in-party social identities become accessible, facilitating favorable comparisons relative to the out-party (see SIT). Secondly, negative campaigning that emphasizes the dangers posed by the out-party may spur negative out-party evaluations.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iyengar et al.&nbsp;(2019) also present a group of potential antecedents of affective polarization with an ambiguous empirical foundation, requiring further empirical inquiry. These factors somehow limit one’s exposure to bipartisan information. If individuals predominantly consume media that aligns with their party views, if they are online more to consume such media, or if their social networks are ideologically similar, they are frequently (and perhaps exclusively) exposed to information matching their ideology and/or information that vilifies the out-party. Ideologically consistent information may be another means by which social identities come to the fore, triggering favorable in- and unfavorable out-party judgments.&nbsp;Additionally, if individuals repeatedly face negative out-party presentations, negative views may become internalized, echoing Gerbner’s (1969) cultivation theory.</p>
+</section>
+<section id="empirical-findings" class="level2">
+<h2 class="anchored" data-anchor-id="empirical-findings"><strong>Empirical Findings</strong></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;When examining country levels of affective polarization, one can assess to what extent a country is affectively <em>polarized</em> or <em>polarizing</em>. Concerning affective polarization as a process, evidence that affective polarization has been increasing in the US appears unequivocal. This is no surprise given that the term was coined based on the observation of increasingly diverging favorability evaluations of the in and out-party in the US since 1980 (Iyengar et al., 2012). Interestingly, underlying increasing affective polarization is the decreasing liking of the out-party, absent increasing liking of the in-party. Internationally, evidence is more ambiguous. In a comparison of twelve OECD countries, Boxell et al.&nbsp;(2024) found that beyond the US, only Denmark showcased a significant increase in affective polarization between 1973 and 2020. Contrarily, Germany and Sweden note significantly declining levels of affective polarization. These findings highlight that increasing affective polarization is not a ubiquitously occurring phenomenon.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regarding how affectively polarized democratic systems are, Wagner (2021) compares levels of affective polarization across 51 democracies. He found that poorer countries exhibit the highest degrees of affective polarization and, exceptionally, that the level of affective polarization was highest in the US when disregarding those without party identification. Therefore, affective polarization is comparatively high among US partisans and in poorer democracies.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Turning to political outcomes, Iyengar and Krupenkin (2018) conclude that affective polarization predicts voter turnout, measured using implicit measures (i.e., self-reports). However, Ahn and Mutz (2023) paint a more nuanced picture, finding that affective polarization predicted voting intentions and self-reports of having voted, albeit not actual voting. Since the latter study included explicit measures of turnout, this finding suggests that affective polarization does not facilitate voting behavior and that implicit behavioral voting measures lack external validity. Nevertheless, Phillips (2024) noted that implicit measures may generalize under certain circumstances by finding that repeated voting moderates the association between affective polarization and actual voting. Accordingly, individuals with a history of voting turned out more when affective polarization was high. Thus, affective polarization may facilitate voting for individuals who vote repeatedly. Cross-nationally, research has not extensively examined the link between affective polarization and voting. Harteveld and Wagner (2023) conclude a positive link across Germany, Spain, and the Netherlands. Yet, as demonstrated, their reliance on implicit voting measures may not generalize to actual voting. Therefore, the mobilizing role of affective polarization regarding voting in cross-national settings requires further examination.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other political behaviors can be separated into (non-voting) norm-abiding actions like signing petitions or attending political rallies and norm-breaking behaviors like political violence (Sabucedo &amp; Arce, 1991). Research into affective polarization and normative non-voting behavior is mixed. Lee et al.&nbsp;(2023) found a positive association between affective polarization and such non-voting behaviors in Korea, while Ali and Altawil (2023) did not replicate this finding in the US. Notably, both studies constructed a political participation scale in which enacting more political behaviors indicated greater political participation. However, affective polarization may only be linked to specific political behaviors. Indeed, Bettarelli et al.&nbsp;(2022) found that affective polarization predicts protest behavior in Belgium. Regarding political violence, research has consistently not been able to conclude a significant relationship with affective polarization across nations. Importantly, given potential external validity issues with measures of behavioral correlates of affective polarization, more direct research into specific non-voting participation and political violence is needed. However, ethical and practical obstacles apply to the latter.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To conclude, research has not found a link between affective polarization and explicit threats to political systems like political violence. On the contrary, affective polarization may, in some cases, even spur political participation, which arguably reinforces democratic stability. Nevertheless, considerable challenges remain in this line of research.</p>
+</section>
+<section id="empirical-problems" class="level2">
+<h2 class="anchored" data-anchor-id="empirical-problems"><strong>Empirical Problems</strong></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Conceptual underspecifications of affect and to whom affect is directed challenge research on affective polarization, as noted by Bakker and Lelkes (2024). Based on the definition of affective polarization, affect comprises partisans’ feelings of like and dislike for their in- and out-party (Iyengar &amp; Westwood, 2015). In short, affect is only specified unidimensionally, limiting it to valence (i.e., ranging from positive to negative evaluations). Yet, there is much room for interpretation regarding what constitutes liking and disliking. Some interpret liking and disliking as the equivalent of holding positive or negative beliefs about someone, as seen in operationalizations of affective polarization where partisans judge each other’s character traits (Druckman &amp; Levendusky, 2019). To others, liking and disliking may mean experiencing positive or negative emotions. Notably, such emotional operationalizations of affective polarization have received little attention yet may prove worthwhile because the theoretical foundation of affective polarization (i.e., SIT) draws on intergroup emotions theory (Bakker &amp; Lelkes, 2024).</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why are such different conceptual interpretations problematic? While partisans may dislike out-party members based on both negative beliefs and negative emotions toward them, beliefs and emotions toward out-party members may not converge (e.g., Siev &amp; Petty, 2024). For instance, partisans may dislike out-party members because they are angry at them, yet they may still consider them intelligent. In this scenario, studies operationalizing affective polarization based on emotions would conclude higher levels of affective polarization than operationalizations based on beliefs.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Similarly, affective polarization may be primarily based on emotions, beliefs, or both in certain contexts. However, the most conventionally employed operationalization of affective polarization, the feeling thermometer (Druckman &amp; Levendusky, 2019), makes examining the conceptual underpinnings of affective polarization impossible as it superficially asks partisans to express the extent of their (dis)like toward (co)partisans. To illustrate a potential implication, some studies relying on feeling thermometers have found inconsistent evidence about the link between affective polarization and political participation (e.g.,&nbsp;Ali &amp; Altawil, 2023), while certain emotions seem to unambiguously predict political participation (e.g., Valentino et al., 2011). Thus, a broad conceptualization of affective polarization may gloss over different kinds of affective polarization with different conceptual foundations and, perhaps, different political consequences.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Druckman and Levendusky (2019) also highlight that the subject of (dis)liking is unclear across the literature. Consequently, different studies assess sentiment toward voters of parties, party members, or politicians in office. It appears evident that, depending on the target of affective polarization, its extent and consequences may differ substantially. In sum, the underspecification of affect and its target drives inconsistent operationalizations of affective polarization with potentially different conclusions about its presence across political groups and its political consequences.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Another issue arises from the American context in which affective polarization was conceptualized. The US is a country whose politics are dominated by two parties with whom most voters identify long-term (Atske, 2020). This stable party identification gives credence to the argument that party affiliation shapes partisan social identities in the US (Iyengar et al., 2012). Based on SIT, measuring affective polarization in the US is highly relevant, given that individuals act and feel on behalf of their groups (Tajfel &amp; Turner, 1986). That is because, in the face of exacerbating affective polarization in the US, potentially detrimental consequences like political violence seem, at least, theoretically plausible. However, the social identity argument of party affiliation may not hold in other countries, especially those with multi-party systems. In Germany, for example, identification with one party is decreasing, with voters increasingly changing their party support from one election to the next (Korte, 2021). Thus, many German citizens’ social identities likely remain independent of the party they support. Even if affective polarization operationalizations are developed for multi-party contexts (Wagner, 2021), it is unlikely that affective polarization scores in systems with low party identification are conceptually similar to scores from the US, at least from an SIT standpoint. Therefore, in other national contexts, whether degrees of affective polarization have similar consequences as in the US is unclear. &nbsp;</p>
+</section>
+<section id="suggestions-for-future-research" class="level2">
+<h2 class="anchored" data-anchor-id="suggestions-for-future-research"><strong>Suggestions for Future Research</strong></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To address the potential lack of partisan social identities in non-US multi-party contexts, future research should examine the extent of party identification when investigating affective polarization in such contexts. If a given country yields similar levels of party identification, findings are likely generalizable and comparable to US ones. In this case, future research can use these contexts to replicate and extend findings on identity-based affective polarization. In the case of low party identification, affective polarization may neither generalize nor compare to US findings due to the lack of a partisan social identity, which may lead to affective polarization having different antecedents and consequences. That is not to say that research on affective polarization in these contexts is futile. Indeed, there may still be stark divergences in evaluating the in-party and multiple out-parties, albeit not due to social identities. Research must, therefore, examine the predictors of this variance in party evaluations and whether its consequences are similar or different from identity-based affective polarization. Consequently, future research can provide a more contextually nuanced understanding of affective polarization.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;One remedy to the conceptual underspecification of affective polarization is to adopt a more granular conceptualization of affect. Instead of broadly defining it unidimensionally, only ranging from positive to negative evaluations, researchers may further specify what makes up such evaluative ratings of political groups. One way to do this is to conceptualize affect attitudinally. Indeed, the definition of affective polarization, referring to favorable and unfavorable evaluations of (co)partisans (Iyengar &amp; Westwood, 2015), perfectly aligns with definitions of attitudes. The Causal Attitude Network (CAN) Model by Dalege et al.&nbsp;(2016) defines them “as networks of interacting evaluative reactions [comprising] feelings, beliefs and behaviors toward an attitude object” (p.&nbsp;6). Accordingly, evaluations of attitude objects are broken up further into emotional, cognitive, and behavioral components.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applied to affective polarization, when diagnosing how individuals evaluate in-party members comparatively to out-party members, one could measure how they feel, think, and behave toward co-partisans (intraparty attitudes) and opposing partisans (interparty attitudes). In so doing, one may find that, in particular political contexts, specific components of intra-/interparty attitudes are the primary drivers of broader measures of affective polarization, like the feeling thermometer. Determining the structure of intra-/interparty attitudes may provide insight into their potential consequences. For example, if feeling thermometers attest to a high degree of affective polarization and network analyses of interparty attitudes show that anger toward opposing partisans is the most central attitudinal component, such affective polarization may facilitate political participation due to the mobilizing property of anger (Valentino et al., 2011). &nbsp;In other words, different types of affective polarization could be conceptualized based on specific underlying intra-/interparty attitudinal structures. Another differentiation between types of affective polarization could be based on different attitude objects, remedying the second source of conceptual underspecification. For example, partisans evaluating public officials may be categorized as ‘bottom-up affective polarization.’</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Since its initial conceptualization, researchers have justified studying affective polarization by suggesting its potential threats to political systems (Iyengar et al., 2012). So far, research seems to suggest the opposite. By bringing conceptual clarity and a context-dependent understanding to the study of affective polarization, future research may answer with more certainty whether political ramifications occur or if the question should rather be under which circumstances affective polarization threatens democratic stability.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references"><strong>References</strong></h2>
+<p>Ahn, C., &amp; Mutz, D. C. (2023). The effects of polarized evaluations on political participation: Does hating the other side motivate voters? <em>Public Opinion Quarterly</em>, <em>87</em>(2), 243–266. https://doi.org/10.1093/poq/nfad012</p>
+<p>Ali, M., &amp; Altawil, A. (2023). Affective polarization and political engagement in the United States: What factors matter? <em>Atlantic Journal of Communication</em>, <em>31</em>(5), 373–388. https://doi.org/10.1080/15456870.2022.2076856</p>
+<p>Atske, S. (2020, August 4). Voters rarely switch parties, but recent shifts further educational, racial divergence. <em>Pew Research Center</em>. https://www.pewresearch.org/politics/2020/08/04/voters-rarely-switch-parties-but-recent-shifts-further-educational-racial-divergence/</p>
+<p>Bakker, B. N., &amp; Lelkes, Y. (2024). Putting the affect into affective polarisation. <em>Cognition and Emotion</em>, <em>38</em>(4), 418–436. https://doi.org/10.1080/02699931.2024.2362366</p>
+<p>Balmer, C. (2018, March 9). Italian election lays bare gaping north-south divide. <em>Reuters</em>. https://www.reuters.com/article/world/italian-election-lays-bare-gaping-north-south-divide-idUSKCN1GL24Y/</p>
+<p>Bettarelli, L., Close, C., &amp; Haute, E. van. (2022). Is protest only negative? Examining the effect of emotions and affective polarization on protest behaviour. <em>Politics and Governance</em>, <em>10</em>(4), 311–324. https://doi.org/10.17645/pag.v10i4.5665</p>
+<p>Boxell, L., Gentzkow, M., &amp; Shapiro, J. M. (2024). Cross-country trends in affective polarization. <em>Review of Economics and Statistics</em>, <em>106</em>(2), 557–565. https://doi.org/10.1162/rest_a_01160</p>
+<p>Dalege, J., Borsboom, D., Van Harreveld, F., Van Den Berg, H., Conner, M., &amp; Van Der Maas, H. L. J. (2016). Toward a formalized account of attitudes: The Causal Attitude Network (CAN) model. <em>Psychological Review</em>, <em>123</em>(1), 2–22. https://doi.org/10.1037/a0039802</p>
+<p>Druckman, J. N., &amp; Levendusky, M. S. (2019). What do we measure when we measure affective polarization? <em>Public Opinion Quarterly</em>, <em>83</em>(1), 114–122. https://doi.org/10.1093/poq/nfz003</p>
+<p>Druckman, J. N., &amp; Levy, J. (2022). <em>Chapter 18: Affective polarization in the American public</em>. https://www.elgaronline.com/edcollchap/book/9781800379619/book-part-9781800379619-30.xml</p>
+<p>Edsall, T. B. (2024, April 24). Why losing political power now feels like ‘losing your country.’ <em>The New York Times</em>. https://www.nytimes.com/2024/04/24/opinion/partisan-polarization-republicans-democrats.html</p>
+<p>Fürstenau, M. (2024, May 21). Deutschland: Rekord bei politisch motivierter Kriminalität. <em>dw.com</em>. https://www.dw.com/de/politische-und-religi%C3%B6s-motivierte-kriminalit%C3%A4t-auf-rekord-niveau/a-69144297</p>
+<p>Gerbner, G. (1969). Toward “cultural indicators”: The analysis of mass mediated public message systems. <em>AV Communication Review</em>, <em>17</em>(2), 137–148.</p>
+<p>Harteveld, E., &amp; Wagner, M. (2023). Does affective polarisation increase turnout? Evidence from Germany, The Netherlands and Spain. <em>West European Politics</em>, <em>46</em>(4), 732–759. https://doi.org/10.1080/01402382.2022.2087395</p>
+<p>Iyengar, S., &amp; Krupenkin, M. (2018). The strengthening of partisan affect. <em>Political Psychology</em>, <em>39</em>(S1), 201–218. https://doi.org/10.1111/pops.12487</p>
+<p>Iyengar, S., Lelkes, Y., Levendusky, M., Malhotra, N., &amp; Westwood, S. J. (2019). The origins and consequences of affective polarization in the United States. <em>Annual Review of Political Science</em>, <em>22</em>(1), 129–146. https://doi.org/10.1146/annurev-polisci-051117-073034</p>
+<p>Iyengar, S., Sood, G., &amp; Lelkes, Y. (2012). Affect, not ideology. <em>Public Opinion Quarterly</em>, <em>76</em>(3), 405–431. https://doi.org/10.1093/poq/nfs038</p>
+<p>Iyengar, S., &amp; Westwood, S. J. (2015). Fear and loathing across party lines: New evidence on group polarization. <em>American Journal of Political Science</em>, <em>59</em>(3), 690–707. https://doi.org/10.1111/ajps.12152</p>
+<p>Korte, K.-R. (2021, July 1). Parteiidentifikation, Kandidatenorientierung und politische Streitfragen. <em>Bundeszentrale für Politische Bildung</em>. https://www.bpb.de/themen/politisches-system/wahlen-in-deutschland/335668/parteiidentifikation-kandidatenorientierung-und-politische-streitfragen/</p>
+<p>Lee, S., Choi, J., &amp; Ahn, C. (2023). Hate prompts participation: Examining the dynamic relationship between affective polarization and political participation. <em>New Media &amp; Society</em>, 146144482311773. https://doi.org/10.1177/14614448231177301</p>
+<p>Lelkes, Y. (2016). Mass Polarization: Manifestations and Measurements. <em>Public Opinion Quarterly</em>, <em>80</em>(S1), 392–410. https://doi.org/10.1093/poq/nfw005</p>
+<p>Phillips, J. B. (2024). Affective polarization and habits of political participation. <em>Electoral Studies</em>, <em>87</em>, 102733. https://doi.org/10.1016/j.electstud.2023.102733</p>
+<p>Ruf, S. (2024, February 25). Sorge vor wachsender Spaltung der Gesellschaft: Vier Parteien reagieren. <em>Frankfurter Rundschau</em>. https://www.fr.de/politik/extremismus-menschen-deutschland-angst-sorge-spaltung-gesellschaft-vier-parteien-reagieren-zr-92852908.html</p>
+<p>Sabucedo, J. M., &amp; Arce, C. (1991). Types of political participation: A multidimensional analysis. <em>European Journal of Political Research</em>, <em>20</em>(1), 93–102. https://doi.org/10.1111/j.1475-6765.1991.tb00257.x</p>
+<p>Searcey, D. (2024, September 14). In politically divided america, even the Walz family has painful rifts. <em>The New York Times</em>. https://www.nytimes.com/2024/09/14/us/elections/tim-walz-estranged-brother-jeff.html</p>
+<p>Siev, J. J., &amp; Petty, R. E. (2024). Ambivalent attitudes promote support for extreme political actions. <em>Science Advances</em>. https://doi.org/10.1126/sciadv.adn2965</p>
+<p>Tajfel, H. (1978). Social categorization, social identity and social comparison. <em>Differentiation between Social Group</em>, 61–76.</p>
+<p>Tajfel, H., &amp; Turner, J. C. (1979). The social psychology of intergroup relations. In <em>An integrative theory of intergroup conflict</em> (pp.&nbsp;33–47). Brooks/Cole.</p>
+<p>Tajfel, H., &amp; Turner, J. C. (1986). The social identity theory of intergroup behavior. In <em>Psychology of Intergroup Relations</em> (pp.&nbsp;7–24).</p>
+<p>Valentino, N. A., Brader, T., Groenendyk, E. W., Gregorowicz, K., &amp; Hutchings, V. L. (2011). Election night’s alright for fighting: The role of emotions in political participation. <em>The Journal of Politics</em>, <em>73</em>(1), 156–170. https://doi.org/10.1017/S0022381610000939</p>
+<p>van Prooijen, J. (2021). <em>The psychology of political polarization</em>. Routledge.</p>
+<p>Wagner, M. (2021). Affective polarization in multiparty systems. <em>Electoral Studies</em>, <em>69</em>, 102199. https://doi.org/10.1016/j.electstud.2020.102199</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
