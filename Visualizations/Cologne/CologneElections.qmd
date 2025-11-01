@@ -1,0 +1,212 @@
+---
+title: "Bundestagswahlergebnisse Köln"
+author: "Luke D. Fischer"
+format: html
+editor: visual
+lang: de
+theme: 
+  - cosmo
+  - styles.scss
+toc: TRUE
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| include: false
+
+library(tidyverse)
+library(sf)
+library(ggiraph)
+library(showtext)
+library(gdtools)
+library(gfonts)
+
+font_add_google("Roboto", family = "Roboto")
+showtext_auto()
+
+register_gfont("Roboto")
+
+
+Wahlkreise <- st_read("btw25_geometrie_wahlkreise_vg250.shp", quiet = TRUE)
+
+
+Wahlkreise_Köln<- Wahlkreise |> 
+  filter(WKR_NR %in% c(92, 93, 94, 100)) |> 
+  mutate(WKR_NAME = if_else(WKR_NAME == "Leverkusen – Köln IV", "Leverkusen/Köln IV", WKR_NAME))
+
+
+Wahlkreise_Köln <- Wahlkreise_Köln |> 
+  mutate(Gewinner_2025 = c("CDU", "Grüne", "Grüne", "CDU")) |> 
+  mutate(Ergebnis_2025 = c("CDU = 22,3%", "Grüne = 25,8%", "Grüne = 21,8%", "CDU = 24,6%")) |> 
+  mutate(Gewinner_2021 = c("SPD", "Grüne", "Grüne", "SPD")) |> 
+  mutate(Ergebnis_2021 = c("SPD = 26,4%", "Grüne = 31,9%", "Grüne = 28.8%", "SPD = 29,1%")) |> 
+  mutate(Gewinner_2017 = c("CDU", "CDU", "SPD", "CDU")) |> 
+  mutate(Ergebnis_2017 = c("CDU = 26,4%", "CDU = 28,5%", "SPD = 24,6%", "CDU = 28,1%")) |> 
+  mutate(Gewinner_2013 = c("CDU", "CDU", "SPD", "CDU")) |> 
+  mutate(Ergebnis_2013 = c("CDU = 33,3%", "CDU = 35,5%", "SPD = 31,5%", "CDU = 35,6%"))
+
+Wahlkreise_Köln <- Wahlkreise_Köln |> 
+  mutate(Gewinner_2025 = factor(Gewinner_2025, levels = c("SPD", "Grüne", "CDU"))) |> 
+  mutate(Gewinner_2021 = factor(Gewinner_2021, levels = c("SPD", "Grüne", "CDU"))) |> 
+  mutate(Gewinner_2017 = factor(Gewinner_2017, levels = c("SPD", "Grüne", "CDU"))) |> 
+  mutate(Gewinner_2013 = factor(Gewinner_2013, levels = c("SPD", "Grüne", "CDU"))) 
+  
+```
+
+## Kontext
+
+Dieses Dokument stell die besten Zweitstimmenergebnisse der Bundeswahlkreise der Stadt Köln in den Jahren 2013, 2017, 2021 und 2025 dar.
+
+Quelle: [Bundeswahlleiterin](https://www.bundeswahlleiterin.de/bundestagswahlen/2025/ergebnisse/bund-99/land-5/wahlkreis-92.html)
+
+## Bundeswahlkreise der Stadt Köln
+
+Die Stadt Köln lässt sich in die Bundeswahlkreise Köln I, Köln II, Köln III und Leverkusen - Köln IV unterteilen.
+
+-   **Köln I** besteht aus den Stadtbezirken Porz und Kalk sowie den Innenstadtbezirken Deutz, Altstadt/Nord und Neustadt/Nord
+
+-   **Köln II** besteht aus den Stadtbezirken Lindenthal und Rodenkirchen sowie den Innenstadtbezirken Altstadt/Süd und Neustadt/Süd
+
+-   **Köln III** besteht aus den Stadtbezirken Chorweiler, Ehrenfeld und Nippes
+
+-   **Leverkusen - Köln IV** besteht aus dem Stadtbezirk Mülheim sowie dem Stadtgebiet Leverkusen
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 9
+#| fig-align: "center"
+
+Wahlkreise <- Wahlkreise |> 
+  filter(WKR_NR %in% c(92, 93, 94, 100))|> 
+  mutate(WKR_NAME = if_else(WKR_NAME == "Leverkusen – Köln IV", "Leverkusen/Köln IV", WKR_NAME)) |> 
+  mutate(Wahlkreise = c("Wahlkreis 92", "Wahlkreis 93", "Wahlkreis 94", "Wahlkreis 100"))
+  
+Wahlkreise_plot <- ggplot(Wahlkreise)+ 
+  geom_sf_interactive(aes(data_id = WKR_NAME, tooltip = Wahlkreise),
+    fill = "slategrey", color = "white") +
+  geom_sf_text(aes(label = WKR_NAME), size = 5, color = "white", family = "Roboto") +
+  theme_void()
+
+WahlkreiseInteractive <- girafe(ggobj = Wahlkreise_plot)
+
+girafe_options(WahlkreiseInteractive, 
+               opts_hover(css = "stroke:white;cursor:pointer;transition: all 0.3s ease;"), 
+               opts_hover_inv("opacity:0.5;filter:saturate(80%);"))
+
+```
+
+## Bundeswahlergebnisse der Kölner Bundeswahlkreise
+
+Die Karte ist interaktiv. Klickt auf einen Wahlkreis, um das jeweilig beste Zweitstimmenergebnis zu sehen.
+
+::: {.panel-tabset .nav-pills}
+## 2025
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 9
+
+
+
+Köln_2025 <- ggplot(Wahlkreise_Köln)+ 
+  geom_sf_interactive(aes(data_id = WKR_NAME, tooltip = Ergebnis_2025, fill = Gewinner_2025), color = "white") +
+  geom_sf_text(aes(label = WKR_NAME), size = 5, color = "white", family = "Roboto") +
+  scale_fill_manual(values = c("#1AA037", "#000000")) +
+  labs(fill = NULL)+
+  theme_void()+
+  theme(legend.position = "top", legend.key.width = unit(1, 'cm'), 
+        legend.key.height = unit(0.2, 'cm'), legend.text = element_text(size = 12, family = "Roboto"))
+
+Köln_2025_Interactive <- girafe(ggobj = Köln_2025)
+
+girafe_options(Köln_2025_Interactive, 
+               opts_hover(css = "stroke:white;cursor:pointer;transition: all 0.3s ease;"), 
+               opts_hover_inv("opacity:0.5;filter:saturate(80%);"))
+
+```
+
+## 2021
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 9
+
+Köln_2021 <- ggplot(Wahlkreise_Köln)+ 
+  geom_sf_interactive(aes(data_id = WKR_NAME, tooltip = Ergebnis_2021, fill = Gewinner_2021), color = "white") +
+  geom_sf_text(aes(label = WKR_NAME), size = 5, color = "white", family = "Roboto") +
+  scale_fill_manual(values = c("#E3000F","#1AA037")) +
+  labs(fill = NULL)+
+  theme_void()+
+  theme(legend.position = "top", legend.key.width = unit(1, 'cm'), 
+        legend.key.height = unit(0.2, 'cm'), legend.text = element_text(size = 12, family = "Roboto"))
+
+Köln_2021_Interactive <- girafe(ggobj = Köln_2021)
+
+girafe_options(Köln_2021_Interactive, 
+               opts_hover(css = "stroke:white;cursor:pointer;transition: all 0.3s ease;"), 
+               opts_hover_inv("opacity:0.5;filter:saturate(80%);"))
+```
+
+## 2017
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 9
+
+Köln_2017 <- ggplot(Wahlkreise_Köln)+ 
+  geom_sf_interactive(aes(data_id = WKR_NAME, tooltip = Ergebnis_2017, fill = Gewinner_2017), color = "white") +
+  geom_sf_text(aes(label = WKR_NAME), size = 5, color = "white", family = "Roboto") +
+  scale_fill_manual(values = c("#E3000F", "#000000")) +
+  labs(fill = NULL)+
+  theme_void()+
+  theme(legend.position = "top", legend.key.width = unit(1, 'cm'), 
+        legend.key.height = unit(0.2, 'cm'), legend.text = element_text(size = 12, family = "Roboto"))
+
+Köln_2017_Interactive <- girafe(ggobj = Köln_2017)
+
+girafe_options(Köln_2017_Interactive, 
+               opts_hover(css = "stroke:white;cursor:pointer;transition: all 0.3s ease;"), 
+               opts_hover_inv("opacity:0.5;filter:saturate(80%);"))
+
+```
+
+## 2013
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 9
+
+Köln_2013 <- ggplot(Wahlkreise_Köln)+ 
+  geom_sf_interactive(aes(data_id = WKR_NAME, tooltip = Ergebnis_2013, fill = Gewinner_2013), color = "white") +
+  geom_sf_text(aes(label = WKR_NAME), size = 5, color = "white", family = "Roboto") +
+  scale_fill_manual(values = c("#E3000F", "#000000")) +
+  labs(fill = NULL)+
+  theme_void()+
+  theme(legend.position = "top", legend.key.width = unit(1, 'cm'), 
+        legend.key.height = unit(0.2, 'cm'), legend.text = element_text(size = 12, family = "Roboto"))
+
+Köln_2013_Interactive <- girafe(ggobj = Köln_2013)
+
+girafe_options(Köln_2013_Interactive, 
+               opts_hover(css = "stroke:white;cursor:pointer;transition: all 0.3s ease;"), 
+               opts_hover_inv("opacity:0.5;filter:saturate(80%);"))
+
+```
+:::

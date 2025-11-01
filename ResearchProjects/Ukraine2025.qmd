@@ -1,7 +1,9 @@
 ---
 title: "Democracy Under Fire: Threat Perception and Political Attitudes During the War in Ukraine"
-authors: "Fischer, L., Dziundziuk, V., & Bakker, B. N."
+authors: "Fischer, L. D., Dziundziuk, V., & Bakker, B. N. (2025)"
 ---
+
+*Project Status: Under Peer Review*
 
 ::: center
 ### Abstract

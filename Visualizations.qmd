@@ -4,6 +4,10 @@ title: "Visualizations"
 
 ## 2025
 
+### Cologne National Election Results
+<br><br>
+[![](Images/CologneElections.png){width="550"}](https://lukedfischer.github.io/Visualizations/Cologne/CologneElections.html)
+
 ### Second Vote Share German Parties
 
 [![](Images/Zweitstimmenanteile.png)](https://lukedfischer.github.io/Visualizations/Zweitstimmenanteile/Zweitstimmenanteil.html)
