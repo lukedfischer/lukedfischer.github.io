@@ -6,7 +6,7 @@ toc: false
 ![](Images/Luke%201.2.jpg){.img-fluid fig-align="center" width="200"}
 
 ::: center
-### Welcome
+**Welcome!**
 
 My name is Luke Fischer and I am a research master's student in communication science\
 focusing on political psychology and communication.

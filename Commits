@@ -1,7 +1,7 @@
 git remote add origin https://github.com/lukedfischer/lukedfischer.github.io
 git branch -M main
 git add --all
-git commit -m "Fix Blog Link"
+git commit -m "Heading center"
 git push -u origin main
 
 
