@@ -806,7 +806,7 @@ The graphs of the second row visualize the following results:
 
 -   In wave 3 (around Apr. 30th), there is a *significant* positive relationship between exposure to EU news (published in news cycle 3) and intention to turnout in the EU election. This was ascertained using a linear regression model, controlling for turnout intentions in the prior wave. Linear regression results are not presented in this report.
 
--   There is *no significant* relationship between exposure to EU news (published in news cycle 4) and actual turnout in the EU elections. Non-significance was inferred based on overlapping density plots.
+-   There is *no significant* relationship between exposure to EU news (published in news cycle 4) and actual turnout in the EU elections.
 
 # References
 
