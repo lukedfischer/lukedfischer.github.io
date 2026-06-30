@@ -8,8 +8,7 @@ toc: false
 ::: center
 **Welcome!**
 
-My name is Luke Fischer and I am a research master's student in communication science\
-focusing on political psychology and communication.
+My name is Luke Fischer and I research political psychology and communication. I have a research master's degree in communication science and a bachelor of science in psychology.
 :::
 
 ------------------------------------------------------------------------
