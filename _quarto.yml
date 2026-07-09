@@ -20,7 +20,7 @@ website:
 format:
   html:
     theme:
-      - lux
+      - cosmo
       - brand
     css: styles.css
     toc: true
