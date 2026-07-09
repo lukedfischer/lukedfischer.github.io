@@ -2,3 +2,8 @@
 .center {
   text-align: center;
 }
+
+/* Table styling */
+th {
+  background-color: #white;
+}
