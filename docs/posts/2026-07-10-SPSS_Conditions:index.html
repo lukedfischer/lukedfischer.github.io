@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Luke D. Fischer">
+<meta name="dcterms.date" content="2026-07-10">
+<meta name="description" content="A Brief Tutorial">
 
-<title>Blog – Luke D. Fischer</title>
+<title>How to Merge Separate Condition Variables in SPSS – Luke D. Fischer</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-54ca3c8880fd8c986106ce3bf5c7adc7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-54ca3c8880fd8c986106ce3bf5c7adc7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,67 +73,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -142,7 +85,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Luke D. Fischer</span>
     </a>
   </div>
@@ -153,23 +96,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./CV.html"> 
+    <a class="nav-link" href="../CV.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Research_Projects.html"> 
+    <a class="nav-link" href="../Research_Projects.html"> 
 <span class="menu-text">Research Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Visualizations.html"> 
+    <a class="nav-link" href="../Visualizations.html"> 
 <span class="menu-text">Visualizations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./posts.html" aria-current="page"> 
+    <a class="nav-link" href="../posts.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -184,21 +127,59 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="QWZmZWN0aXZlJTIwUG9sYXJpemF0aW9u">Affective Polarization <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QXR0aXR1ZGVz">Attitudes <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29uc3BpcmFjeSUyMEJlbGllZnM=">Conspiracy Beliefs <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMFdyYW5nbGluZw==">Data Wrangling <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YVZpeg==">DataViz <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RG9jdW1lbnRhdGlvbg==">Documentation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWlzaW5mb3JtYXRpb24=">Misinformation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TW90aXZhdGVkJTIwUmVhc29uaW5n">Motivated Reasoning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TmV0d29yayUyME1vZGVscw==">Network Models <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U1BTUw==">SPSS <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#goal" id="toc-goal" class="nav-link active" data-scroll-target="#goal">Goal</a></li>
+  <li><a href="#step-1---recode-condition-1-into-a-new-variable" id="toc-step-1---recode-condition-1-into-a-new-variable" class="nav-link" data-scroll-target="#step-1---recode-condition-1-into-a-new-variable">Step 1 - Recode Condition 1 Into a new Variable</a></li>
+  <li><a href="#step-2---recode-condition-2-into-c" id="toc-step-2---recode-condition-2-into-c" class="nav-link" data-scroll-target="#step-2---recode-condition-2-into-c">Step 2 - Recode Condition 2 into C</a></li>
+  <li><a href="#step-3---recode-condition-3-into-c" id="toc-step-3---recode-condition-3-into-c" class="nav-link" data-scroll-target="#step-3---recode-condition-3-into-c">Step 3 - Recode Condition 3 into C</a></li>
+  <li><a href="#the-final-result" id="toc-the-final-result" class="nav-link" data-scroll-target="#the-final-result">The Final Result</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
+<h1 class="title">How to Merge Separate Condition Variables in SPSS</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">SPSS</div>
+    <div class="quarto-category">Data Wrangling</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    A Brief Tutorial
+  </div>
 </div>
 
-
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://lukedfischer.github.io/">Luke D. Fischer</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of Amsterdam
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 10, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -208,145 +189,164 @@ window.Quarto = {
 </header>
 
 
+<section id="goal" class="level2">
+<h2 class="anchored" data-anchor-id="goal">Goal</h2>
+<p>When downloading experimental data from Qualtrics, it is common for the variable showing which condition a person was assigned to to be distributed across different columns: Whether a person was assigned to a certain condition is denoted by a 1 in a respective condition column, whereas that person will have a missing value in the columns that denote assignment to the other conditions (see Figure 1). Our goal is to merge all of these columns into one column with three different values denoting assignment to either condition 1, 2 or 3 (see Figure 2).</p>
+<p>Importantly, in this tutorial, we are not saving what we are doing by pasting our operations in the syntax. For reproducibility, this is always recommended because by doing so, we can simply rerun the syntax at a later point in time and do not have to go through all the SPSS menu buttons all over again. For simplicity, however, this tutorial runs all operations by clicking <code>OK</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_1.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 1</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_19.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 2</figcaption>
+</figure>
+</div>
+</section>
+<section id="step-1---recode-condition-1-into-a-new-variable" class="level2">
+<h2 class="anchored" data-anchor-id="step-1---recode-condition-1-into-a-new-variable">Step 1 - Recode Condition 1 Into a new Variable</h2>
+<p>We start by navigating to <code>Transform</code> and <code>Recode into Different Variables...</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_2.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 3</figcaption>
+</figure>
+</div>
+<p>Next, in the left-most box, we select the first condition column C1 and place it in the white box in the middle. We then write the new variable name into <code>Name:</code> under <code>Output Variable</code>, give it a label, and click on <code>Change</code>. Here, the new name C and label C are chosen. Then, we click on <code>Old and new Values...</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_3.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 4</figcaption>
+</figure>
+</div>
+<p>In the old column for condition 1, assignment to condition 1 is denoted by a 1. So we need to type a 1 into the box <code>Value:</code> under <code>Old Value</code>. On the right, we now need to specify which value condition 1 should have in our new variable C. Let’s not over-complicate it and also say 1. Then we need to navigate to the button <code>Add</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_4.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 5</figcaption>
+</figure>
+</div>
+<p>Having clicked <code>Add</code>, this should appear (see Figure 6). Click <code>Continue</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_5.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 6</figcaption>
+</figure>
+</div>
+<p>Now we are back in the <code>Recode into Different Variables...</code> menu. Click on <code>OK</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_6.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 7</figcaption>
+</figure>
+</div>
+<p>As can be seen in Figure 8, the new condition variable looks now exactly like the column denoting assignment to condition 1. In the next step, we will recode the values in the column for condition 2 into this same new variable C. Note that the variable type for each condition variable and the new one was changed into a nominal variable. I don’t really know why, but it is actually a good thing since our condition variable is, in fact, nominal.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_7.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 8</figcaption>
+</figure>
+</div>
+</section>
+<section id="step-2---recode-condition-2-into-c" class="level2">
+<h2 class="anchored" data-anchor-id="step-2---recode-condition-2-into-c">Step 2 - Recode Condition 2 into C</h2>
+<p>We now navigate back to the <code>Recode into Different Variables...</code> menu.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_8.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 9</figcaption>
+</figure>
+</div>
+<p>Now we want to recode variable C2 into the same output variable C. When you now click <code>Change</code>, a warning message will appear.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_9.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 10</figcaption>
+</figure>
+</div>
+<p>This warning message only tells us that we are writing into a variable that already exists. Since we want this, simply ignore it and click <code>OK</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_10.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 11</figcaption>
+</figure>
+</div>
+<p>We now need to remove the initial recoding because we do not want the number for the second condition to also be 1 in the new condition variable C - otherwise we would not be able to distinguish between conditions 1 and 2. Simply click on the old recoding and then click the button <code>Remove</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_11.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 12</figcaption>
+</figure>
+</div>
+<p>Now indicate that the 1 in the column for condition 2 should become 2 in the new condition variable C. Click on <code>Continue</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_12.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 13</figcaption>
+</figure>
+</div>
+<p>Importantly, we do not want to overwrite the condition 1 values in the new condition variable C. If we were to simply click okay in the <code>Recode into Different Variables...</code> menu, the 1’s in the new condition variable C would become missing values again. So we only want to recode those values in the new condition variable C that are still empty (or missing). Click on <code>If...</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_13.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 14</figcaption>
+</figure>
+</div>
+<p>Now select <code>Include if case satisfies condition:</code> and then enter <code>MISSING(C)</code>. This specifies that we are only overwriting those values in the new variable C that are still ‘empty’.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_14.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 15</figcaption>
+</figure>
+</div>
+<p>As you can see, the if-condition we specified now appears next to <code>If...</code>. Click on <code>OK</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_15.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 16</figcaption>
+</figure>
+</div>
+<p>Now we can see that we have come closer to our goal. In the new condition, we can now clearly see how was assigned to condition 1 or condition 2. In a last step, we need to repeat step 2 and recode condition 3 into this new condition variable C.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_16.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 17</figcaption>
+</figure>
+</div>
+</section>
+<section id="step-3---recode-condition-3-into-c" class="level2">
+<h2 class="anchored" data-anchor-id="step-3---recode-condition-3-into-c">Step 3 - Recode Condition 3 into C</h2>
+<p>Finally, repeat step 2 to recode condition 3 values into the new condition variable C.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_17.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 18</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_18.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 19</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-final-result" class="level2">
+<h2 class="anchored" data-anchor-id="the-final-result">The Final Result</h2>
+<p>Violá!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="BlogImages/Condition_Tutorial/Condition_Tutorial_19.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Figure 20</figcaption>
+</figure>
+</div>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="U1BTUyUyQ0RhdGElMjBXcmFuZ2xpbmc=" data-listing-date-sort="1783634400000" data-listing-file-modified-sort="1783718551654" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="752">
-<a href="./posts/2026-07-10-SPSS_Conditions:index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/BlogImages/Conditions.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-How to Merge Separate Condition Variables in SPSS
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('U1BTUw=='); return false;">SPSS</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFdyYW5nbGluZw=='); return false;">Data Wrangling</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>A Brief Tutorial</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Luke D. Fischer
-</div>
-<div class="listing-date">
-Jul 10, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="UiUyQ0RhdGFWaXolMkNEb2N1bWVudGF0aW9u" data-listing-date-sort="1783548000000" data-listing-file-modified-sort="1783690253887" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2173">
-<a href="./posts/2026-07-09-gt_apa7:index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/BlogImages/APALOGO.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-A gt() and gtExtras() Extension to Create APA7 Formatted Tables
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YVZpeg=='); return false;">DataViz</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RG9jdW1lbnRhdGlvbg=='); return false;">Documentation</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>A Description of Functions and Example Applications</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Luke D. Fischer
-</div>
-<div class="listing-date">
-Jul 9, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="TW90aXZhdGVkJTIwUmVhc29uaW5nJTJDTWlzaW5mb3JtYXRpb24lMkNDb25zcGlyYWN5JTIwQmVsaWVmcw==" data-listing-date-sort="1757368800000" data-listing-file-modified-sort="1783688924384" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="514">
-<a href="./posts/2025-09-09-LiarLiarRFK:index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/BlogImages/RFKJR.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Liar, Liar, Health on Fire?
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('TW90aXZhdGVkJTIwUmVhc29uaW5n'); return false;">Motivated Reasoning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWlzaW5mb3JtYXRpb24='); return false;">Misinformation</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Q29uc3BpcmFjeSUyMEJlbGllZnM='); return false;">Conspiracy Beliefs</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>On Secretary RFK Jr.&nbsp;and Motivated Reasoning</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Luke D. Fischer
-</div>
-<div class="listing-date">
-Sep 9, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="QWZmZWN0aXZlJTIwUG9sYXJpemF0aW9uJTJDQXR0aXR1ZGVzJTJDTmV0d29yayUyME1vZGVscw==" data-listing-date-sort="1729202400000" data-listing-file-modified-sort="1761988578854" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3315">
-<a href="./posts/2025-11-01-affectivepolarization:index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/BlogImages/Polarization.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Reconceptualizing Affective Polarization
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('QWZmZWN0aXZlJTIwUG9sYXJpemF0aW9u'); return false;">Affective Polarization</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('QXR0aXR1ZGVz'); return false;">Attitudes</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('TmV0d29yayUyME1vZGVscw=='); return false;">Network Models</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>On the state of affective polarization research and potential future avenues</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Luke D. Fischer
-</div>
-<div class="listing-date">
-Oct 18, 2024
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
