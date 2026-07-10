@@ -22,15 +22,15 @@ library(tidyverse)
 
 ## APA7 Formatting - Code and Back-Story
 
-Creating APA7 tables is a pain, no matter which software or text processor one uses. I am not sure when, but at some point during my Research Master's I decided to go full-on R-mode and only use R to create publishable tables. Here is a dump of some of the code I developed and reused over the past 2 years.
+Creating APA7 tables is a pain, no matter which software or text processor one uses. I am not sure when, but at some point during my Research Master's I decided to go full-on R-mode and only use R to create publishable tables. Here is some of the code I developed and reused over the past 2 years.
 
-### Baseline APA7 Format
+### Baseline APA7 Format - `gt_apa7()`
 
-The function below takes a table as input and uses the table formatting packages `gt` and `gtExtras` to return an APA7 consistent table as output. Does not automatically italicize certain table content (e.g., the mean abbreviation *M* in the table header). These additional content formatting operations need to be conducted before or after applying the APA7 formatting function.
+The function below takes a table as input and uses the table formatting packages `gt` and `gtExtras` to return an APA7 consistent table as output. Note that this function does not automatically italicize certain table content (e.g., the mean abbreviation *M* in the table header). These additional content formatting operations need to be conducted before or after applying the APA7 formatting function.
 
-An APA table only consists of horizontal lines (a line at the top of the table, a line separating the header from the table content, and a line at the bottom of the table). All column headers are centered and bold. All table content except for the content in the left-most column is left aligned. Note, however, that APA7 allows for table content to be left aligned if it facilitates readability - meaning that the function should be adapted in this case.
+An APA table only consists of horizontal lines (a line at the top of the table, a line separating the header from the table content, and a line at the bottom of the table). All column headers are centered and bold. All table content except for the content in the left-most column is left-aligned. Note, however, that APA7 allows for table content to be left-aligned if it facilitates readability - meaning that the function should be adapted in this case.
 
-In addition to this baseline formatting, the function also includes some additional arguments, depending on the author's needs. For instance, it is possible to save the table immediately by passing in a string to the argument save_table. This argument makes use of the function gtsave and requires the string to specify the name and desired file type of the saved table (e.g., "apa7_table.png"). Additionally, the one can specify row groupings - for example, specific rows may contain information on items belonging to a specific scale. Here, the grouping argument can be leveraged. Simply supply a named list in which the names in the list refer to the variable groups (i.e., their desired name) and the values in the list refer to the row indices that belong to the group.
+In addition to this baseline formatting, the function also includes some additional arguments, depending on the author's needs. For instance, it is possible to save the table immediately by passing in a string to the argument `save_table`. This argument makes use of the function `gtsave()` and requires the string to specify the name and desired file type of the saved table (e.g., "apa7_table.png"). Additionally, the one can specify row groupings - for example, specific rows may contain information on items belonging to a specific scale. Here, the `grouping` argument can be leveraged. Simply supply a named list in which the names in the list refer to the variable groups (i.e., their desired name) and the values in the list refer to the row indices that belong to the group.
 
 ```{r}
 #| echo: true
@@ -119,9 +119,9 @@ gt_apa7 <- function(gt_table,
 }
 ```
 
-### Create Table for Descriptive Statistics of Continuous Variable
+### Create a Table for Descriptive Statistics of Continuous Variable - `gt_describe()`
 
-When writing papers, I developed a preference for a certain format of descriptive statistics tables for continuous variables. Here, the describe() function from the psych package always provides a number of relevant summary statistics that I wanted to display in an APA-consistent format. Therefore, this function makes use of psych::describe() and already formats the table in a way that one must simply use the gp_apa7() function afterward to create an APA7 consistent descriptive statistics table.
+When writing papers, I developed a preference for a certain format of descriptive statistics tables for continuous variables. Here, the `describe()` function from the `psych` package always provides a number of relevant summary statistics that I wanted to display in an APA-consistent format. Therefore, the function `gt_describe()` makes use of `psych::describe()` and already formats the table in a way that one must simply use the `gt_apa7()` function afterward to create an APA7 consistent descriptive statistics table.
 
 ```{r}
 #| echo: true
@@ -198,9 +198,9 @@ gt_describe <- function(df,
 }
 ```
 
-### Create Correlation Table
+### Create a Correlation Table - `gt_cor()`
 
-Similarly, I wanted to facilitate creating correlation tables. Just use this function on a table of continuous variables and the output supplies a nicely formatted correlation table that only requires the gt_apa7() function as a final formatting step.
+Similarly, I wanted to facilitate creating correlation tables. Just use this function on a table of continuous variables and the output supplies a nicely formatted correlation table that only requires the `gt_apa7()` function as a final formatting step.
 
 ```{r}
 #| echo: true
@@ -254,7 +254,7 @@ gt_cor <- function(df,
 
 ## Example Application
 
-Let us apply the functions and see what the result looks like. I am using the data set HolzingerSwineford1939 from the lavaan package.
+Let us apply the functions and see what the result looks like. I am using the data set "HolzingerSwineford1939" from the `lavaan` package.
 
 ```{r}
 #| echo: true

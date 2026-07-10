@@ -168,9 +168,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#apa7-formatting---code-and-back-story" id="toc-apa7-formatting---code-and-back-story" class="nav-link active" data-scroll-target="#apa7-formatting---code-and-back-story">APA7 Formatting - Code and Back-Story</a>
   <ul class="collapse">
-  <li><a href="#baseline-apa7-format" id="toc-baseline-apa7-format" class="nav-link" data-scroll-target="#baseline-apa7-format">Baseline APA7 Format</a></li>
-  <li><a href="#create-table-for-descriptive-statistics-of-continuous-variable" id="toc-create-table-for-descriptive-statistics-of-continuous-variable" class="nav-link" data-scroll-target="#create-table-for-descriptive-statistics-of-continuous-variable">Create Table for Descriptive Statistics of Continuous Variable</a></li>
-  <li><a href="#create-correlation-table" id="toc-create-correlation-table" class="nav-link" data-scroll-target="#create-correlation-table">Create Correlation Table</a></li>
+  <li><a href="#baseline-apa7-format---gt_apa7" id="toc-baseline-apa7-format---gt_apa7" class="nav-link" data-scroll-target="#baseline-apa7-format---gt_apa7">Baseline APA7 Format - <code>gt_apa7()</code></a></li>
+  <li><a href="#create-a-table-for-descriptive-statistics-of-continuous-variable---gt_describe" id="toc-create-a-table-for-descriptive-statistics-of-continuous-variable---gt_describe" class="nav-link" data-scroll-target="#create-a-table-for-descriptive-statistics-of-continuous-variable---gt_describe">Create a Table for Descriptive Statistics of Continuous Variable - <code>gt_describe()</code></a></li>
+  <li><a href="#create-a-correlation-table---gt_cor" id="toc-create-a-correlation-table---gt_cor" class="nav-link" data-scroll-target="#create-a-correlation-table---gt_cor">Create a Correlation Table - <code>gt_cor()</code></a></li>
   </ul></li>
   <li><a href="#example-application" id="toc-example-application" class="nav-link" data-scroll-target="#example-application">Example Application</a>
   <ul class="collapse">
@@ -234,12 +234,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="apa7-formatting---code-and-back-story" class="level2">
 <h2 class="anchored" data-anchor-id="apa7-formatting---code-and-back-story">APA7 Formatting - Code and Back-Story</h2>
-<p>Creating APA7 tables is a pain, no matter which software or text processor one uses. I am not sure when, but at some point during my Research Master’s I decided to go full-on R-mode and only use R to create publishable tables. Here is a dump of some of the code I developed and reused over the past 2 years.</p>
-<section id="baseline-apa7-format" class="level3">
-<h3 class="anchored" data-anchor-id="baseline-apa7-format">Baseline APA7 Format</h3>
-<p>The function below takes a table as input and uses the table formatting packages <code>gt</code> and <code>gtExtras</code> to return an APA7 consistent table as output. Does not automatically italicize certain table content (e.g., the mean abbreviation <em>M</em> in the table header). These additional content formatting operations need to be conducted before or after applying the APA7 formatting function.</p>
-<p>An APA table only consists of horizontal lines (a line at the top of the table, a line separating the header from the table content, and a line at the bottom of the table). All column headers are centered and bold. All table content except for the content in the left-most column is left aligned. Note, however, that APA7 allows for table content to be left aligned if it facilitates readability - meaning that the function should be adapted in this case.</p>
-<p>In addition to this baseline formatting, the function also includes some additional arguments, depending on the author’s needs. For instance, it is possible to save the table immediately by passing in a string to the argument save_table. This argument makes use of the function gtsave and requires the string to specify the name and desired file type of the saved table (e.g., “apa7_table.png”). Additionally, the one can specify row groupings - for example, specific rows may contain information on items belonging to a specific scale. Here, the grouping argument can be leveraged. Simply supply a named list in which the names in the list refer to the variable groups (i.e., their desired name) and the values in the list refer to the row indices that belong to the group.</p>
+<p>Creating APA7 tables is a pain, no matter which software or text processor one uses. I am not sure when, but at some point during my Research Master’s I decided to go full-on R-mode and only use R to create publishable tables. Here is some of the code I developed and reused over the past 2 years.</p>
+<section id="baseline-apa7-format---gt_apa7" class="level3">
+<h3 class="anchored" data-anchor-id="baseline-apa7-format---gt_apa7">Baseline APA7 Format - <code>gt_apa7()</code></h3>
+<p>The function below takes a table as input and uses the table formatting packages <code>gt</code> and <code>gtExtras</code> to return an APA7 consistent table as output. Note that this function does not automatically italicize certain table content (e.g., the mean abbreviation <em>M</em> in the table header). These additional content formatting operations need to be conducted before or after applying the APA7 formatting function.</p>
+<p>An APA table only consists of horizontal lines (a line at the top of the table, a line separating the header from the table content, and a line at the bottom of the table). All column headers are centered and bold. All table content except for the content in the left-most column is left-aligned. Note, however, that APA7 allows for table content to be left-aligned if it facilitates readability - meaning that the function should be adapted in this case.</p>
+<p>In addition to this baseline formatting, the function also includes some additional arguments, depending on the author’s needs. For instance, it is possible to save the table immediately by passing in a string to the argument <code>save_table</code>. This argument makes use of the function <code>gtsave()</code> and requires the string to specify the name and desired file type of the saved table (e.g., “apa7_table.png”). Additionally, the one can specify row groupings - for example, specific rows may contain information on items belonging to a specific scale. Here, the <code>grouping</code> argument can be leveraged. Simply supply a named list in which the names in the list refer to the variable groups (i.e., their desired name) and the values in the list refer to the row indices that belong to the group.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gt_apa7 <span class="ot">&lt;-</span> <span class="cf">function</span>(gt_table, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">text_size =</span> <span class="dv">20</span>, </span>
@@ -323,9 +323,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="create-table-for-descriptive-statistics-of-continuous-variable" class="level3">
-<h3 class="anchored" data-anchor-id="create-table-for-descriptive-statistics-of-continuous-variable">Create Table for Descriptive Statistics of Continuous Variable</h3>
-<p>When writing papers, I developed a preference for a certain format of descriptive statistics tables for continuous variables. Here, the describe() function from the psych package always provides a number of relevant summary statistics that I wanted to display in an APA-consistent format. Therefore, this function makes use of psych::describe() and already formats the table in a way that one must simply use the gp_apa7() function afterward to create an APA7 consistent descriptive statistics table.</p>
+<section id="create-a-table-for-descriptive-statistics-of-continuous-variable---gt_describe" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-table-for-descriptive-statistics-of-continuous-variable---gt_describe">Create a Table for Descriptive Statistics of Continuous Variable - <code>gt_describe()</code></h3>
+<p>When writing papers, I developed a preference for a certain format of descriptive statistics tables for continuous variables. Here, the <code>describe()</code> function from the <code>psych</code> package always provides a number of relevant summary statistics that I wanted to display in an APA-consistent format. Therefore, the function <code>gt_describe()</code> makes use of <code>psych::describe()</code> and already formats the table in a way that one must simply use the <code>gt_apa7()</code> function afterward to create an APA7 consistent descriptive statistics table.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gt_describe <span class="ot">&lt;-</span> <span class="cf">function</span>(df, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">distributions =</span> <span class="cn">TRUE</span>, </span>
@@ -398,9 +398,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="create-correlation-table" class="level3">
-<h3 class="anchored" data-anchor-id="create-correlation-table">Create Correlation Table</h3>
-<p>Similarly, I wanted to facilitate creating correlation tables. Just use this function on a table of continuous variables and the output supplies a nicely formatted correlation table that only requires the gt_apa7() function as a final formatting step.</p>
+<section id="create-a-correlation-table---gt_cor" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-correlation-table---gt_cor">Create a Correlation Table - <code>gt_cor()</code></h3>
+<p>Similarly, I wanted to facilitate creating correlation tables. Just use this function on a table of continuous variables and the output supplies a nicely formatted correlation table that only requires the <code>gt_apa7()</code> function as a final formatting step.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gt_cor <span class="ot">&lt;-</span> <span class="cf">function</span>(df, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">custom_names =</span> <span class="cn">NULL</span>) {</span>
@@ -451,7 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-application" class="level2">
 <h2 class="anchored" data-anchor-id="example-application">Example Application</h2>
-<p>Let us apply the functions and see what the result looks like. I am using the data set HolzingerSwineford1939 from the lavaan package.</p>
+<p>Let us apply the functions and see what the result looks like. I am using the data set “HolzingerSwineford1939” from the <code>lavaan</code> package.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>test_df <span class="ot">&lt;-</span> lavaan<span class="sc">::</span>HolzingerSwineford1939 <span class="sc">|&gt;</span> <span class="fu">select</span>(x1<span class="sc">:</span>x9)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -473,23 +473,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_describe</span>(<span class="at">distributions =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_apa7</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="iklckmgmvv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iklckmgmvv table {
+<div id="qojqhfhvxr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qojqhfhvxr table {
   font-family: 'Times New Roman';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iklckmgmvv thead, #iklckmgmvv tbody, #iklckmgmvv tfoot, #iklckmgmvv tr, #iklckmgmvv td, #iklckmgmvv th {
+#qojqhfhvxr thead, #qojqhfhvxr tbody, #qojqhfhvxr tfoot, #qojqhfhvxr tr, #qojqhfhvxr td, #qojqhfhvxr th {
   border-style: none;
 }
 
-#iklckmgmvv p {
+#qojqhfhvxr p {
   margin: 0;
   padding: 0;
 }
 
-#iklckmgmvv .gt_table {
+#qojqhfhvxr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -515,12 +515,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_caption {
+#qojqhfhvxr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iklckmgmvv .gt_title {
+#qojqhfhvxr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -532,7 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#iklckmgmvv .gt_subtitle {
+#qojqhfhvxr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -544,7 +544,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#iklckmgmvv .gt_heading {
+#qojqhfhvxr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -556,13 +556,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_bottom_border {
+#qojqhfhvxr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_col_headings {
+#qojqhfhvxr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #000000;
@@ -577,7 +577,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_col_heading {
+#qojqhfhvxr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -597,7 +597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#iklckmgmvv .gt_column_spanner_outer {
+#qojqhfhvxr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -609,15 +609,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#iklckmgmvv .gt_column_spanner_outer:first-child {
+#qojqhfhvxr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iklckmgmvv .gt_column_spanner_outer:last-child {
+#qojqhfhvxr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iklckmgmvv .gt_column_spanner {
+#qojqhfhvxr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -629,11 +629,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#iklckmgmvv .gt_spanner_row {
+#qojqhfhvxr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iklckmgmvv .gt_group_heading {
+#qojqhfhvxr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -659,7 +659,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#iklckmgmvv .gt_empty_group_heading {
+#qojqhfhvxr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -674,15 +674,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#iklckmgmvv .gt_from_md > :first-child {
+#qojqhfhvxr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iklckmgmvv .gt_from_md > :last-child {
+#qojqhfhvxr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iklckmgmvv .gt_row {
+#qojqhfhvxr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -701,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#iklckmgmvv .gt_stub {
+#qojqhfhvxr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -714,7 +714,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#iklckmgmvv .gt_stub_row_group {
+#qojqhfhvxr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -728,15 +728,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#iklckmgmvv .gt_row_group_first td {
+#qojqhfhvxr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iklckmgmvv .gt_row_group_first th {
+#qojqhfhvxr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iklckmgmvv .gt_summary_row {
+#qojqhfhvxr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -746,16 +746,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#iklckmgmvv .gt_first_summary_row {
+#qojqhfhvxr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_first_summary_row.thick {
+#qojqhfhvxr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iklckmgmvv .gt_last_summary_row {
+#qojqhfhvxr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -765,7 +765,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_grand_summary_row {
+#qojqhfhvxr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -775,7 +775,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#iklckmgmvv .gt_first_grand_summary_row {
+#qojqhfhvxr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -785,7 +785,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_last_grand_summary_row_top {
+#qojqhfhvxr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -795,11 +795,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_striped {
+#qojqhfhvxr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iklckmgmvv .gt_table_body {
+#qojqhfhvxr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -808,7 +808,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #000000;
 }
 
-#iklckmgmvv .gt_footnotes {
+#qojqhfhvxr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -822,7 +822,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_footnote {
+#qojqhfhvxr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -831,7 +831,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#iklckmgmvv .gt_sourcenotes {
+#qojqhfhvxr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -845,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#iklckmgmvv .gt_sourcenote {
+#qojqhfhvxr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -853,72 +853,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#iklckmgmvv .gt_left {
+#qojqhfhvxr .gt_left {
   text-align: left;
 }
 
-#iklckmgmvv .gt_center {
+#qojqhfhvxr .gt_center {
   text-align: center;
 }
 
-#iklckmgmvv .gt_right {
+#qojqhfhvxr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iklckmgmvv .gt_font_normal {
+#qojqhfhvxr .gt_font_normal {
   font-weight: normal;
 }
 
-#iklckmgmvv .gt_font_bold {
+#qojqhfhvxr .gt_font_bold {
   font-weight: bold;
 }
 
-#iklckmgmvv .gt_font_italic {
+#qojqhfhvxr .gt_font_italic {
   font-style: italic;
 }
 
-#iklckmgmvv .gt_super {
+#qojqhfhvxr .gt_super {
   font-size: 65%;
 }
 
-#iklckmgmvv .gt_footnote_marks {
+#qojqhfhvxr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iklckmgmvv .gt_asterisk {
+#qojqhfhvxr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iklckmgmvv .gt_indent_1 {
+#qojqhfhvxr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iklckmgmvv .gt_indent_2 {
+#qojqhfhvxr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iklckmgmvv .gt_indent_3 {
+#qojqhfhvxr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iklckmgmvv .gt_indent_4 {
+#qojqhfhvxr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iklckmgmvv .gt_indent_5 {
+#qojqhfhvxr .gt_indent_5 {
   text-indent: 25px;
 }
 
-#iklckmgmvv .katex-display {
+#qojqhfhvxr .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#iklckmgmvv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qojqhfhvxr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1036,23 +1036,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_describe</span>(<span class="at">distributions =</span> <span class="cn">TRUE</span>, <span class="at">fixed_axes =</span> <span class="cn">FALSE</span>, <span class="at">bandwidth =</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_apa7</span>(<span class="at">grouping =</span> wave_order, <span class="at">grouping_weight =</span> <span class="st">"bold"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="gdavxyiirk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gdavxyiirk table {
+<div id="cfekipsmwz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cfekipsmwz table {
   font-family: 'Times New Roman';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gdavxyiirk thead, #gdavxyiirk tbody, #gdavxyiirk tfoot, #gdavxyiirk tr, #gdavxyiirk td, #gdavxyiirk th {
+#cfekipsmwz thead, #cfekipsmwz tbody, #cfekipsmwz tfoot, #cfekipsmwz tr, #cfekipsmwz td, #cfekipsmwz th {
   border-style: none;
 }
 
-#gdavxyiirk p {
+#cfekipsmwz p {
   margin: 0;
   padding: 0;
 }
 
-#gdavxyiirk .gt_table {
+#cfekipsmwz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1078,12 +1078,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_caption {
+#cfekipsmwz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gdavxyiirk .gt_title {
+#cfekipsmwz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1095,7 +1095,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#gdavxyiirk .gt_subtitle {
+#cfekipsmwz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1107,7 +1107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#gdavxyiirk .gt_heading {
+#cfekipsmwz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1119,13 +1119,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_bottom_border {
+#cfekipsmwz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_col_headings {
+#cfekipsmwz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #000000;
@@ -1140,7 +1140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_col_heading {
+#cfekipsmwz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1160,7 +1160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#gdavxyiirk .gt_column_spanner_outer {
+#cfekipsmwz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1172,15 +1172,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#gdavxyiirk .gt_column_spanner_outer:first-child {
+#cfekipsmwz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gdavxyiirk .gt_column_spanner_outer:last-child {
+#cfekipsmwz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gdavxyiirk .gt_column_spanner {
+#cfekipsmwz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -1192,11 +1192,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#gdavxyiirk .gt_spanner_row {
+#cfekipsmwz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gdavxyiirk .gt_group_heading {
+#cfekipsmwz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1222,7 +1222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#gdavxyiirk .gt_empty_group_heading {
+#cfekipsmwz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1237,15 +1237,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#gdavxyiirk .gt_from_md > :first-child {
+#cfekipsmwz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gdavxyiirk .gt_from_md > :last-child {
+#cfekipsmwz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gdavxyiirk .gt_row {
+#cfekipsmwz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1264,7 +1264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#gdavxyiirk .gt_stub {
+#cfekipsmwz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1277,7 +1277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#gdavxyiirk .gt_stub_row_group {
+#cfekipsmwz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1291,15 +1291,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#gdavxyiirk .gt_row_group_first td {
+#cfekipsmwz .gt_row_group_first td {
   border-top-width: 0px;
 }
 
-#gdavxyiirk .gt_row_group_first th {
+#cfekipsmwz .gt_row_group_first th {
   border-top-width: 0px;
 }
 
-#gdavxyiirk .gt_summary_row {
+#cfekipsmwz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1309,16 +1309,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#gdavxyiirk .gt_first_summary_row {
+#cfekipsmwz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_first_summary_row.thick {
+#cfekipsmwz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gdavxyiirk .gt_last_summary_row {
+#cfekipsmwz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1328,7 +1328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_grand_summary_row {
+#cfekipsmwz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1338,7 +1338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#gdavxyiirk .gt_first_grand_summary_row {
+#cfekipsmwz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1348,7 +1348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_last_grand_summary_row_top {
+#cfekipsmwz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1358,11 +1358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_striped {
+#cfekipsmwz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gdavxyiirk .gt_table_body {
+#cfekipsmwz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1371,7 +1371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #000000;
 }
 
-#gdavxyiirk .gt_footnotes {
+#cfekipsmwz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1385,7 +1385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_footnote {
+#cfekipsmwz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1394,7 +1394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#gdavxyiirk .gt_sourcenotes {
+#cfekipsmwz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1408,7 +1408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#gdavxyiirk .gt_sourcenote {
+#cfekipsmwz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1416,72 +1416,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#gdavxyiirk .gt_left {
+#cfekipsmwz .gt_left {
   text-align: left;
 }
 
-#gdavxyiirk .gt_center {
+#cfekipsmwz .gt_center {
   text-align: center;
 }
 
-#gdavxyiirk .gt_right {
+#cfekipsmwz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gdavxyiirk .gt_font_normal {
+#cfekipsmwz .gt_font_normal {
   font-weight: normal;
 }
 
-#gdavxyiirk .gt_font_bold {
+#cfekipsmwz .gt_font_bold {
   font-weight: bold;
 }
 
-#gdavxyiirk .gt_font_italic {
+#cfekipsmwz .gt_font_italic {
   font-style: italic;
 }
 
-#gdavxyiirk .gt_super {
+#cfekipsmwz .gt_super {
   font-size: 65%;
 }
 
-#gdavxyiirk .gt_footnote_marks {
+#cfekipsmwz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gdavxyiirk .gt_asterisk {
+#cfekipsmwz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gdavxyiirk .gt_indent_1 {
+#cfekipsmwz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gdavxyiirk .gt_indent_2 {
+#cfekipsmwz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gdavxyiirk .gt_indent_3 {
+#cfekipsmwz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gdavxyiirk .gt_indent_4 {
+#cfekipsmwz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gdavxyiirk .gt_indent_5 {
+#cfekipsmwz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#gdavxyiirk .katex-display {
+#cfekipsmwz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#gdavxyiirk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cfekipsmwz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1641,23 +1641,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_cor</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_apa7</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="jexurfltow" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jexurfltow table {
+<div id="szidhbaoej" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#szidhbaoej table {
   font-family: 'Times New Roman';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jexurfltow thead, #jexurfltow tbody, #jexurfltow tfoot, #jexurfltow tr, #jexurfltow td, #jexurfltow th {
+#szidhbaoej thead, #szidhbaoej tbody, #szidhbaoej tfoot, #szidhbaoej tr, #szidhbaoej td, #szidhbaoej th {
   border-style: none;
 }
 
-#jexurfltow p {
+#szidhbaoej p {
   margin: 0;
   padding: 0;
 }
 
-#jexurfltow .gt_table {
+#szidhbaoej .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1683,12 +1683,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#jexurfltow .gt_caption {
+#szidhbaoej .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jexurfltow .gt_title {
+#szidhbaoej .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1700,7 +1700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#jexurfltow .gt_subtitle {
+#szidhbaoej .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1712,7 +1712,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#jexurfltow .gt_heading {
+#szidhbaoej .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1724,13 +1724,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jexurfltow .gt_bottom_border {
+#szidhbaoej .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jexurfltow .gt_col_headings {
+#szidhbaoej .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #000000;
@@ -1745,7 +1745,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jexurfltow .gt_col_heading {
+#szidhbaoej .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1765,7 +1765,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jexurfltow .gt_column_spanner_outer {
+#szidhbaoej .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1777,15 +1777,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#jexurfltow .gt_column_spanner_outer:first-child {
+#szidhbaoej .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jexurfltow .gt_column_spanner_outer:last-child {
+#szidhbaoej .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jexurfltow .gt_column_spanner {
+#szidhbaoej .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -1797,11 +1797,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#jexurfltow .gt_spanner_row {
+#szidhbaoej .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jexurfltow .gt_group_heading {
+#szidhbaoej .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1827,7 +1827,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#jexurfltow .gt_empty_group_heading {
+#szidhbaoej .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1842,15 +1842,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#jexurfltow .gt_from_md > :first-child {
+#szidhbaoej .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jexurfltow .gt_from_md > :last-child {
+#szidhbaoej .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jexurfltow .gt_row {
+#szidhbaoej .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1869,7 +1869,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jexurfltow .gt_stub {
+#szidhbaoej .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1882,7 +1882,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jexurfltow .gt_stub_row_group {
+#szidhbaoej .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1896,15 +1896,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#jexurfltow .gt_row_group_first td {
+#szidhbaoej .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jexurfltow .gt_row_group_first th {
+#szidhbaoej .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jexurfltow .gt_summary_row {
+#szidhbaoej .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1914,16 +1914,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jexurfltow .gt_first_summary_row {
+#szidhbaoej .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jexurfltow .gt_first_summary_row.thick {
+#szidhbaoej .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jexurfltow .gt_last_summary_row {
+#szidhbaoej .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1933,7 +1933,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jexurfltow .gt_grand_summary_row {
+#szidhbaoej .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1943,7 +1943,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jexurfltow .gt_first_grand_summary_row {
+#szidhbaoej .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1953,7 +1953,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#jexurfltow .gt_last_grand_summary_row_top {
+#szidhbaoej .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1963,11 +1963,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jexurfltow .gt_striped {
+#szidhbaoej .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jexurfltow .gt_table_body {
+#szidhbaoej .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1976,7 +1976,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #000000;
 }
 
-#jexurfltow .gt_footnotes {
+#szidhbaoej .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1990,7 +1990,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jexurfltow .gt_footnote {
+#szidhbaoej .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1999,7 +1999,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jexurfltow .gt_sourcenotes {
+#szidhbaoej .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2013,7 +2013,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jexurfltow .gt_sourcenote {
+#szidhbaoej .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2021,72 +2021,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jexurfltow .gt_left {
+#szidhbaoej .gt_left {
   text-align: left;
 }
 
-#jexurfltow .gt_center {
+#szidhbaoej .gt_center {
   text-align: center;
 }
 
-#jexurfltow .gt_right {
+#szidhbaoej .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jexurfltow .gt_font_normal {
+#szidhbaoej .gt_font_normal {
   font-weight: normal;
 }
 
-#jexurfltow .gt_font_bold {
+#szidhbaoej .gt_font_bold {
   font-weight: bold;
 }
 
-#jexurfltow .gt_font_italic {
+#szidhbaoej .gt_font_italic {
   font-style: italic;
 }
 
-#jexurfltow .gt_super {
+#szidhbaoej .gt_super {
   font-size: 65%;
 }
 
-#jexurfltow .gt_footnote_marks {
+#szidhbaoej .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jexurfltow .gt_asterisk {
+#szidhbaoej .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jexurfltow .gt_indent_1 {
+#szidhbaoej .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jexurfltow .gt_indent_2 {
+#szidhbaoej .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jexurfltow .gt_indent_3 {
+#szidhbaoej .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jexurfltow .gt_indent_4 {
+#szidhbaoej .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jexurfltow .gt_indent_5 {
+#szidhbaoej .gt_indent_5 {
   text-indent: 25px;
 }
 
-#jexurfltow .katex-display {
+#szidhbaoej .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#jexurfltow div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#szidhbaoej div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
