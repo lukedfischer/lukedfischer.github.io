@@ -179,7 +179,7 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "How to Merge Separate Condition Variables in SPSS\n\n\n\nSPSS\n\nData Wrangling\n\n\n\nA Brief Tutorial\n\n\n\nLuke D. Fischer\n\n\nJul 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nA gt() and gtExtras() Extension to Create APA7 Formatted Tables\n\n\n\nR\n\nDataViz\n\nDocumentation\n\n\n\nA Description of Functions and Example Applications\n\n\n\nLuke D. Fischer\n\n\nJul 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nLiar, Liar, Health on Fire?\n\n\n\nMotivated Reasoning\n\nMisinformation\n\nConspiracy Beliefs\n\n\n\nOn Secretary RFK Jr. and Motivated Reasoning\n\n\n\nLuke D. Fischer\n\n\nSep 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nReconceptualizing Affective Polarization\n\n\n\nAffective Polarization\n\nAttitudes\n\nNetwork Models\n\n\n\nOn the state of affective polarization research and potential future avenues\n\n\n\nLuke D. Fischer\n\n\nOct 18, 2024\n\n\n\n\n\n\nNo matching items"
+    "text": "Moderation Analysis in SPSS (Regression): Continuous IV and Continuous Moderator\n\n\n\nSPSS\n\nAnalysis\n\n\n\nA Brief Tutorial\n\n\n\nLuke D. Fischer\n\n\nJul 11, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to Merge Separate Condition Variables in SPSS\n\n\n\nSPSS\n\nData Wrangling\n\n\n\nA Brief Tutorial\n\n\n\nLuke D. Fischer\n\n\nJul 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nA gt() and gtExtras() Extension to Create APA7 Formatted Tables\n\n\n\nR\n\nDataViz\n\nDocumentation\n\n\n\nA Description of Functions and Example Applications\n\n\n\nLuke D. Fischer\n\n\nJul 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nLiar, Liar, Health on Fire?\n\n\n\nMotivated Reasoning\n\nMisinformation\n\nConspiracy Beliefs\n\n\n\nOn Secretary RFK Jr. and Motivated Reasoning\n\n\n\nLuke D. Fischer\n\n\nSep 9, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nReconceptualizing Affective Polarization\n\n\n\nAffective Polarization\n\nAttitudes\n\nNetwork Models\n\n\n\nOn the state of affective polarization research and potential future avenues\n\n\n\nLuke D. Fischer\n\n\nOct 18, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2025-11-01-affectivepolarization:index.html",
@@ -334,5 +334,19 @@
     "title": "How to Merge Separate Condition Variables in SPSS",
     "section": "The Final Result",
     "text": "The Final Result\nViolá!\n\n\n\nFigure 20"
+  },
+  {
+    "objectID": "posts/2026-07-11-SPSS_Moderation1:index.html",
+    "href": "posts/2026-07-11-SPSS_Moderation1:index.html",
+    "title": "Moderation Analysis in SPSS (Regression): Continuous IV and Continuous Moderator",
+    "section": "",
+    "text": "In this tutorial, I will explain how to conduct a moderation analysis in SPSS using multiple regression if you have a continuous moderator and a continuous independent variable. When we talk about moderation, we mean that the relationship between a predictor variable and an outcome variable depends on a third variable - the moderator variable. Simply put: Depending on the level of the moderator, the relationship between the predictor and the outcome variable changes - meaning that the predictor variable interacts with the moderator variable. This interaction is visualized below: We can see that as we ‘travel’ along values of the moderator variable, the relationship between the predictor variable changes. Visually, we can see that for low values of the moderator, the relationship between X and Y is negative, yet that the relationship between X and Y at higher levels of the moderator variable is positive."
+  },
+  {
+    "objectID": "posts/2026-07-11-SPSS_Moderation1:index.html#goal",
+    "href": "posts/2026-07-11-SPSS_Moderation1:index.html#goal",
+    "title": "Moderation Analysis in SPSS (Regression): Continuous IV and Continuous Moderator",
+    "section": "",
+    "text": "In this tutorial, I will explain how to conduct a moderation analysis in SPSS using multiple regression if you have a continuous moderator and a continuous independent variable. When we talk about moderation, we mean that the relationship between a predictor variable and an outcome variable depends on a third variable - the moderator variable. Simply put: Depending on the level of the moderator, the relationship between the predictor and the outcome variable changes - meaning that the predictor variable interacts with the moderator variable. This interaction is visualized below: We can see that as we ‘travel’ along values of the moderator variable, the relationship between the predictor variable changes. Visually, we can see that for low values of the moderator, the relationship between X and Y is negative, yet that the relationship between X and Y at higher levels of the moderator variable is positive."
   }
 ]

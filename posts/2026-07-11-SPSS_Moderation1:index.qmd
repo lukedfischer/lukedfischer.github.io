@@ -1,0 +1,88 @@
+---
+title: "Moderation Analysis in SPSS (Regression): Continuous IV and Continuous Moderator"
+description: "A Brief Tutorial"
+author:
+  - name: Luke D. Fischer
+    url: https://lukedfischer.github.io/
+    affiliation: University of Amsterdam
+date: 07-11-2026
+categories: [SPSS, Analysis]
+image: BlogImages/Analysis.png
+draft: false
+---
+
+## Goal
+
+In this tutorial, I will explain how to conduct a moderation analysis in SPSS using multiple regression if you have a continuous moderator and a continuous independent variable. When we talk about moderation, we mean that the relationship between a predictor variable and an outcome variable depends on a third variable - the moderator variable. Simply put: Depending on the level of the moderator, the relationship between the predictor and the outcome variable *changes* - meaning that the predictor variable interacts with the moderator variable. This interaction is visualized below: We can see that as we 'travel' along values of the moderator variable, the relationship between the predictor variable changes. Visually, we can see that for low values of the moderator, the relationship between X and Y is negative, yet that the relationship between X and Y at higher levels of the moderator variable is positive.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(plotly)
+
+set.seed(123)
+
+n <- 300
+
+X <- rnorm(n)
+M <- rnorm(n)
+
+# Center Variables
+X <- scale(X, center = FALSE, scale = FALSE)
+M <- scale(M, center = FALSE, scale = FALSE)
+
+Y <- 2 +
+  0.5*X +
+  0.5*M +
+  2.0*(X*M) +
+  rnorm(n, sd = 1)
+
+dat <- data.frame(X, M, Y)
+
+model <- lm(Y ~ X * M, data = dat)
+
+# Prediction grid
+x.seq <- seq(min(dat$X), max(dat$X), length.out = 40)
+m.seq <- seq(min(dat$M), max(dat$M), length.out = 40)
+
+grid <- expand.grid(X = x.seq,
+                    M = m.seq)
+
+grid$Yhat <- predict(model, newdata = grid)
+
+zmat <- matrix(grid$Yhat,
+               nrow = length(x.seq),
+               ncol = length(m.seq))
+
+plot_ly() %>%
+  add_markers(data = dat,
+              x = ~X,
+              y = ~M,
+              z = ~Y,
+              name = "Observed data",
+              marker = list(size = 2,
+                            color = "black",
+                            opacity = .5)) %>%
+  add_surface(
+    x = x.seq,
+    y = m.seq,
+    z = zmat,
+    name = "Model predictions",
+    opacity = .7,
+    showscale = FALSE
+  ) %>%
+  layout(
+    showlegend = FALSE,
+    scene = list(
+      camera = list(
+        eye = list(x = 1.1,
+                   y = -2.5,
+                   z = 0.15)
+      ),
+      xaxis = list(title = "X"),
+      yaxis = list(title = "Moderator"),
+      zaxis = list(title = "Y")
+    ))
+```
